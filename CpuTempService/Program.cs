@@ -1,7 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Net.Mime;
 using System.Threading;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace CpuTempService
 {
@@ -9,49 +12,23 @@ namespace CpuTempService
     {
         static void Main(string[] args)
         {
-            var notifier = new NotifyIfContentChanged("/sys/class/thermal/thermal_zone0/temp");
-            notifier.ContentChanged += NotifierOnContentChanged;
-            while (true)
-            {
-                Thread.Sleep(1000);
-                Console.WriteLine("Waiting....");
-            }
+            var webHost = new WebHostBuilder()
+                .UseKestrel()
+                // TODO: get rid of this again after further development. just for testing ;)
+                .UseUrls("http://*:5000")
+                .UseStartup<Program>()
+                .Build();
+            webHost.Run();
         }
 
-        private static void NotifierOnContentChanged(object sender, string s)
+        public void ConfigureServices(IServiceCollection services)
         {
-            var temp = Int32.Parse(s);
-            var tempInFloat = (float) temp / 1000.0;
-            Console.WriteLine("Temperatur is : {0:0.00}", tempInFloat);
+            services.AddMvc();
         }
-    }
-
-    public class NotifyIfContentChanged
-    {
-        private String PreviousContent = string.Empty;
-
-        private FileInfo FileToWatch { get; set; }
-
-        private Timer Timer;
-
-        public event EventHandler<string> ContentChanged;  
-
-        private void Callback(object state)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            var content = File.ReadAllText(FileToWatch.FullName);
-            if (PreviousContent != content)
-            {
-                PreviousContent = content;
-                ContentChanged(null, content);
-            }
+            loggerFactory.AddConsole(LogLevel.Information);
+            app.UseMvc();
         }
-
-        public NotifyIfContentChanged(string path)
-        {
-            FileToWatch = new FileInfo(path);
-            Timer = new Timer(Callback, null, 0, 100);
-        }
-
-
     }
 }
