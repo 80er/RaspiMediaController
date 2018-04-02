@@ -22,8 +22,8 @@ namespace CpuTempService
             if(OnLinux) TemperatureReader = new LinuxCpuTemperatureReader();
             else TemperatureReader = new WindowsCpuTemperatureReader();
         }
-        [HttpGet("{temp}")]
-        public IActionResult Get(int id)
+        [HttpGet("temperature")]
+        public IActionResult Get()
         {
             return Ok(TemperatureReader.GetCurrentTemperature());
         }
