@@ -3,6 +3,6 @@
 ################################################################################
 
 *.suo
-/CpuTempService/CpuTempService/obj
-/CpuTempService/CpuTempService/bin
+/CpuTempService/obj
+/CpuTempService/bin
 /.vs
