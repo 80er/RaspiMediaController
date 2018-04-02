@@ -6,6 +6,4 @@
 /CpuTempService/obj
 /CpuTempService/bin
 /.vs
-/DeployToRaspi.cmd
-/CreateNetcoreStuffAndPublish.cmd
 /null
