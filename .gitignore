@@ -5,4 +5,4 @@
 *.suo
 /CpuTempService/CpuTempService/obj
 /CpuTempService/CpuTempService/bin
-/.vs/VSWorkspaceState.json
+/.vs
