@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ElectronNET.API;
+using ElectronNET.API.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -49,8 +50,18 @@ namespace RaspiMediaControllerFrontend
 
             if (HybridSupport.IsElectronActive)
             {
-                Task.Run(async () => await Electron.WindowManager
-                    .CreateWindowAsync());
+                Task.Run(async () =>
+                {
+                    var browserWindowOptions =
+                        new BrowserWindowOptions
+                        {
+                            Show = false
+                        };
+                    var mainWindow = await Electron.WindowManager
+                        .CreateWindowAsync(browserWindowOptions);
+                    mainWindow.OnReadyToShow +=
+                        () => mainWindow.Show();
+                });
             }
         }
     }

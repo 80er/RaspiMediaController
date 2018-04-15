@@ -9,3 +9,7 @@
 /null
 /RaspiMediaControllerFrontend/obj
 /RaspiMediaControllerFrontend/bin/Debug/netcoreapp2.0
+/MediaControllerBackendServices/bin/Debug/netcoreapp2.0
+/MediaControllerBackendServices/obj
+/RaspiMediaControllerFrontend/bin
+/RaspiMediaControllerFrontend/null

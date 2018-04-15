@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaControllerBackendServices", "CpuTempService\MediaControllerBackendServices.csproj", "{6F06F1D2-D295-4BA9-9321-9689A9BB53AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaControllerBackendServices", "MediaControllerBackendServices\MediaControllerBackendServices.csproj", "{6F06F1D2-D295-4BA9-9321-9689A9BB53AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{D83055B8-1FD9-4B91-8B89-36DBD23EE6F9}"
 	ProjectSection(SolutionItems) = preProject
