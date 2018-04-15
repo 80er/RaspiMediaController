@@ -7,3 +7,5 @@
 /CpuTempService/bin
 /.vs
 /null
+/RaspiMediaControllerFrontend/obj
+/RaspiMediaControllerFrontend/bin/Debug/netcoreapp2.0

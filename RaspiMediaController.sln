@@ -5,6 +5,19 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaControllerBackendServices", "CpuTempService\MediaControllerBackendServices.csproj", "{6F06F1D2-D295-4BA9-9321-9689A9BB53AB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{D83055B8-1FD9-4B91-8B89-36DBD23EE6F9}"
+	ProjectSection(SolutionItems) = preProject
+		CreateNetcoreStuffAndPublish.cmd = CreateNetcoreStuffAndPublish.cmd
+		DeployToRaspi.cmd = DeployToRaspi.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B8529F92-3AC0-45DB-864F-7F87B72E59FD}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiMediaControllerFrontend", "RaspiMediaControllerFrontend\RaspiMediaControllerFrontend.csproj", "{C212E089-264F-4F50-A6EA-FB23FC951778}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +28,10 @@ Global
 		{6F06F1D2-D295-4BA9-9321-9689A9BB53AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F06F1D2-D295-4BA9-9321-9689A9BB53AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F06F1D2-D295-4BA9-9321-9689A9BB53AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C212E089-264F-4F50-A6EA-FB23FC951778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C212E089-264F-4F50-A6EA-FB23FC951778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C212E089-264F-4F50-A6EA-FB23FC951778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C212E089-264F-4F50-A6EA-FB23FC951778}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
