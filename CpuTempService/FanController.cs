@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Gpio;
 
-namespace CpuTempService
+namespace MediaControllerBackendServices
 {
     [Route(("fan"))]
     public class FanController : Controller

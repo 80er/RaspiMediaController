@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CpuTempService
+namespace MediaControllerBackendServices
 {
     public class CpuTemperature
     {

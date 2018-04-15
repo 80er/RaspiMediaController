@@ -1,4 +1,4 @@
-﻿namespace CpuTempService
+﻿namespace MediaControllerBackendServices
 {
     internal interface ICpuTemperatureReader
     {
