@@ -15,6 +15,7 @@ namespace RaspiMediaControllerFrontend
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Starting RaspiMediaControllerFrontend");
             BuildWebHost(args).Run();
         }
 
