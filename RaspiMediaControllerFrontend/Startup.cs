@@ -52,17 +52,21 @@ namespace RaspiMediaControllerFrontend
             {
                 Task.Run(async () =>
                 {
-                    Task.Run(async () => await Electron.WindowManager
-                        .CreateWindowAsync());
-                    //var browserWindowOptions =
-                    //    new BrowserWindowOptions
-                    //    {
-                    //        Show = true
-                    //    };
-                    //var mainWindow = await Electron.WindowManager
-                    //    .CreateWindowAsync(browserWindowOptions);
-                    //mainWindow.OnReadyToShow +=
-                    //    () => mainWindow.Show();
+                    var browserWindowOptions =
+                        new BrowserWindowOptions
+                        {
+                            Show = true,
+                            Fullscreen = true,
+                            AutoHideMenuBar = true,
+                            AlwaysOnTop = true,
+                            DarkTheme = true,
+                            DisableAutoHideCursor = false,
+                            EnableLargerThanScreen = false
+                        };
+                    var mainWindow = await Electron.WindowManager
+                        .CreateWindowAsync(browserWindowOptions);
+                    mainWindow.OnReadyToShow +=
+                        () => mainWindow.Show();
                 });
             }
         }

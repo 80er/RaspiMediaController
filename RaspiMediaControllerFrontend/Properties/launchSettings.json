@@ -2,18 +2,22 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/RaspiMediaControllerFrontend",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:61813/",
       "sslPort": 0
     }
   },
   "profiles": {
-"Electron.NET App": {
-"commandName": "Executable",
-"executablePath": "C:\\Program Files\\dotnet\\dotnet.exe",
-"commandLineArgs": "electronize start"
-},
-
+    "Electron.NET App": {
+      "commandName": "Executable",
+      "executablePath": "dotnet.exe",
+      "commandLineArgs": "electronize start",
+      "workingDirectory": "$(OutputPath)"
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
