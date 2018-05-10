@@ -45,7 +45,7 @@ namespace RaspiMediaControllerFrontend
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}");
             });
 
             if (HybridSupport.IsElectronActive)
@@ -56,15 +56,18 @@ namespace RaspiMediaControllerFrontend
                         new BrowserWindowOptions
                         {
                             Show = true,
-                            Fullscreen = true,
-                            AutoHideMenuBar = true,
+                            Kiosk = true,
+                            //Fullscreen = true,
+                           // AutoHideMenuBar = true,
                             AlwaysOnTop = true,
                             DarkTheme = true,
                             DisableAutoHideCursor = false,
-                            EnableLargerThanScreen = false
+                            EnableLargerThanScreen = true,
+                            //Frame = false
                         };
                     var mainWindow = await Electron.WindowManager
                         .CreateWindowAsync(browserWindowOptions);
+                    mainWindow.SetKiosk(true);
                     mainWindow.OnReadyToShow +=
                         () => mainWindow.Show();
                 });

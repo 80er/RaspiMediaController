@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="ElectronNET.API" Version="0.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0-rc1-final" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="ElectronNET.CLI" Version="0.0.9" />

@@ -1,7 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var now = DateTime.Now;
+    var hour = now.Hour;
+    var minute = now.Minute;
+    var second = now.Second;
 }
 
-<div id="myCarousel" class="body-content">
-   
+<div id="myCarousel" class="body-content" align="center">
+    @hour:@minute:@second
 </div>
