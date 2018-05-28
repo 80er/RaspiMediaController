@@ -35,7 +35,7 @@ namespace MediaControllerBackendServices
             loggerFactory.AddConsole(LogLevel.Information);
             app.UseCors(builder =>
             {
-                builder.WithOrigins("http://localhost:61813", "http://localhost:8001")
+                builder.WithOrigins("http://localhost:61813", "http://localhost:8001", "http://localhost:8002", "http://localhost:8003")
                     .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
             });
             app.UseSignalR(routes =>
