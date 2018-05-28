@@ -25,10 +25,23 @@ namespace MediaControllerBackendServices
         {
             services.AddMvc();
             services.AddSignalR();
+            services.AddSingleton(typeof(TimeHubUpdateSingleton), typeof(TimeHubUpdateSingleton));
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            // next two lines to enforce loading of timerhub
+            var foo = app.ApplicationServices;
+            foo.GetService(typeof(TimeHubUpdateSingleton));
             loggerFactory.AddConsole(LogLevel.Information);
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:61813", "http://localhost:8001")
+                    .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+            });
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<TimeHub>("/timehub");
+            });
             app.UseMvc();
         }
     }
