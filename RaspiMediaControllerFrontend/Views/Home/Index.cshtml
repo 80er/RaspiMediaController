@@ -1,22 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var now = DateTime.Now;
     var hour = now.Hour;
     var minute = now.Minute;
-    var second = now.Second;
+    var timeString = string.Format("{0:D2}:{1:D2}", hour, minute);
+    var dateString = string.Format("{0:D2}.{1:D2}.{2:D4}", now.Day, now.Month, now.Year);
 }
+<table class="timetable">
 
-<div id="myCarousel" class="body-content" align="center">
-    <table>
-        <tr>
-            <td><div id="hour">@hour</div></td>
-            <td>:</td>
-            <td><div id="minute">@minute</div></td>
-            <td>:</td>
-            <td><div id="second">@second</div></td>
-        </tr>
-    </table>
-</div>
+    <tr>
+        <td>
+            <div id="timeString">@timeString</div>
+        </td>
+    </tr>
+    <tr class="timetable dateString">
+        <td >
+            <div id="dateString">@dateString</div>
+        </td>
+    </tr>
+</table>
 
-<script src="~/lib/signalr.js"></script>
 <script src="~/js/time.js"></script>

@@ -32,6 +32,7 @@ namespace MediaControllerBackendServices
             // next two lines to enforce loading of timerhub
             var foo = app.ApplicationServices;
             foo.GetService(typeof(TimeHubUpdateSingleton));
+            foo.GetService(typeof(TemperatureUpdateSingleton));
             loggerFactory.AddConsole(LogLevel.Information);
             app.UseCors(builder =>
             {
@@ -41,6 +42,7 @@ namespace MediaControllerBackendServices
             app.UseSignalR(routes =>
             {
                 routes.MapHub<TimeHub>("/timehub");
+                routes.MapHub<TemperatureHub>("/temperaturehub");
             });
             app.UseMvc();
         }

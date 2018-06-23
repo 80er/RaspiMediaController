@@ -1,26 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 using System.Timers;
 using Microsoft.AspNetCore.SignalR;
+using Timer = System.Timers.Timer;
 
 namespace MediaControllerBackendServices
 {
     class TimeHubUpdateSingleton
     {
-        System.Timers.Timer myTimer;
+        Timer myTimer;
+        private static int myLastMinute;
         public TimeHubUpdateSingleton(IHubContext<TimeHub> hubContext)
         {
+            myLastMinute = DateTime.Now.Minute;
             _hubContext = hubContext;
-            StartTimer();
+            //TimerElapsed(null, null);
+            StartTimerAfterFullMinute();
         }
 
         private IHubContext<TimeHub> _hubContext;
 
-        public void StartTimer()
+        public void StartTimerAfterFullMinute()
         {
-            myTimer = new Timer();
-            myTimer.Interval = 1000;
+            var sleepSeconds = 59 - DateTime.Now.Second;
+            Thread.Sleep(sleepSeconds * 1000);
+            myTimer = new Timer
+            {
+                Interval = 2000
+            };
             myTimer.Elapsed += TimerElapsed;
             myTimer.Start();
         }
@@ -30,7 +37,11 @@ namespace MediaControllerBackendServices
             try
             {
                 var time = DateTime.Now;
-                await _hubContext.Clients.All.SendAsync("UpdateTime", time.Hour, time.Minute, time.Second);
+                if (time.Minute != myLastMinute)
+                {
+                    myLastMinute = time.Minute;
+                    await _hubContext.Clients.All.SendAsync("UpdateTime", time.Hour, time.Minute);
+                }
             }
             catch (Exception exception)
             {

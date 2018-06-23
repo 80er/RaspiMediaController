@@ -1,29 +1,48 @@
-﻿body {
-    padding-top: 0;
-    padding-bottom: 0;
-    color: gray;
-    background-color: black;
-    width: 100vh;
-    height: 100vh;
-    font-family: "Times New Roman", Times, serif;
-    font-size: 120px;
-    text-align: center;
-    vertical-align: middle;
+﻿html {
+    background: black
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-top: 0;
-    padding-bottom: 0;
-    color: gray;
-    background-color: black;
-    text-align: center;
-    width: 100vh;
-    height: 100vh;
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.body.content {
     font-family: "Times New Roman", Times, serif;
     font-size: 120px;
-    vertical-align: middle;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    color: gray;
+    overflow: hidden;
+    position: absolute;
+    opacity: 0.8;
+}
+
+.header.row {
+    position: absolute;
+    font-size: 20px;
+    Color: whitesmoke;
+    height: 30px;
+    top: 10px;
 }
 
 
+.footer.row {
+    position: absolute;
+    font-size: 20px;
+    Color: whitesmoke;
+    height: 30px;
+    bottom:10px;
+}
+
+.timetable {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.timetable.dateString {
+    font-size: 20px;
+}

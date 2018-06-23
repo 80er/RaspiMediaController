@@ -1,15 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Timers;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MediaControllerBackendServices
 {
     class WindowsCpuTemperatureReader : ICpuTemperatureReader
     {
+        private static System.Timers.Timer myTimer;
+        private static double CurrentTemperature = 35;
+        static WindowsCpuTemperatureReader()
+        {
+            myTimer = new Timer
+            {
+                Interval = 2000
+            };
+            myTimer.Elapsed += MyTimerOnElapsed;
+            myTimer.Start();
+        }
+
+        private static void MyTimerOnElapsed(object sender, ElapsedEventArgs e)
+        {
+            if (CurrentTemperature == 35) CurrentTemperature = 36;
+            else CurrentTemperature = 35;
+
+        }
+
         public CpuTemperature GetCurrentTemperature()
         {
-            return new CpuTemperature(-1.0);
+            return new CpuTemperature(CurrentTemperature);
         }
     }
 }
