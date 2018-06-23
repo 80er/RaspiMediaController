@@ -7,17 +7,18 @@
     var dateString = string.Format("{0:D2}.{1:D2}.{2:D4}", now.Day, now.Month, now.Year);
 }
 <table class="timetable">
-
-    <tr>
+    <tr/>
+    <tr style="padding: 0; margin: 0;">
         <td>
             <div id="timeString">@timeString</div>
         </td>
     </tr>
-    <tr class="timetable dateString">
+    <tr  style="padding: 0; margin: 0;">
         <td >
-            <div id="dateString">@dateString</div>
+            <div class="timetable dateString" id="dateString">@dateString</div>
         </td>
     </tr>
+    <tr/>
 </table>
 
 <script src="~/js/time.js"></script>

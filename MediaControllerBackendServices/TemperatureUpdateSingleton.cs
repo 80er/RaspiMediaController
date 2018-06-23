@@ -12,13 +12,19 @@ namespace MediaControllerBackendServices
         private bool OnLinux { get; }
         Timer myTimer;
         private ICpuTemperatureReader TemperatureReader { get; }
+        private FanController FanController { get; set; }
         public TemperatureUpdateSingleton(IHubContext<TimeHub> hubContext)
         {
             if (Directory.Exists("/etc") && Directory.Exists("/usr"))
             {
                 OnLinux = true;
             }
-            if (OnLinux) TemperatureReader = new LinuxCpuTemperatureReader();
+
+            if (OnLinux)
+            {
+                TemperatureReader = new LinuxCpuTemperatureReader();
+                FanController = new FanController();
+            }
             else TemperatureReader = new WindowsCpuTemperatureReader();
             _hubContext = hubContext;
             StartTimer();
@@ -40,7 +46,16 @@ namespace MediaControllerBackendServices
         {
             try
             {
-                 await _hubContext.Clients.All.SendAsync("UpdateTemperature", TemperatureReader.GetCurrentTemperature());
+                var currentTemperature = TemperatureReader.GetCurrentTemperature();
+                await _hubContext.Clients.All.SendAsync("UpdateTemperature", currentTemperature);
+                if (currentTemperature.Temperature > 65.0 && FanController != null)
+                {
+                    FanController.On();
+                }
+                else if (currentTemperature.Temperature <= 65.0 && FanController != null)
+                {
+                    FanController.Off();
+                }
             }
             catch (Exception exception)
             {

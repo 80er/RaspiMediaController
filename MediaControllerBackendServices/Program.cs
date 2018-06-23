@@ -26,6 +26,7 @@ namespace MediaControllerBackendServices
             services.AddMvc();
             services.AddSignalR();
             services.AddSingleton(typeof(TimeHubUpdateSingleton), typeof(TimeHubUpdateSingleton));
+            services.AddSingleton(typeof(TemperatureUpdateSingleton), typeof(TemperatureUpdateSingleton));
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {

@@ -7,8 +7,7 @@ using Unosquare.RaspberryIO.Gpio;
 
 namespace MediaControllerBackendServices
 {
-    [Route(("fan"))]
-    public class FanController : Controller
+    public class FanController
     {
         private GpioPin OutputPin;
 
@@ -17,24 +16,20 @@ namespace MediaControllerBackendServices
             OutputPin = Pi.Gpio[0];
             OutputPin.PinMode = GpioPinDriveMode.Output;
         }
-        [HttpGet("on")]
-        public IActionResult On()
+        public void On()
         {
             if (!OutputPin.Read())
             {
                 OutputPin.Write(true);
             }
-            return Ok();
         }
 
-        [HttpGet("off")]
-        public IActionResult Off()
+        public void Off()
         {
             if (OutputPin.Read())
             {
                 OutputPin.Write(false);
             }
-            return Ok();
         }
     }
 }

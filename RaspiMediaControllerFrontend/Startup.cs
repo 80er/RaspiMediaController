@@ -57,16 +57,16 @@ namespace RaspiMediaControllerFrontend
                         {
                             Show = true,
                             Kiosk = true,
-                            //Fullscreen = true,
-                           // AutoHideMenuBar = true,
+                            Fullscreen = true,
+                            AutoHideMenuBar = true,
                             AlwaysOnTop = true,
                             DarkTheme = true,
                             DisableAutoHideCursor = false,
-                            EnableLargerThanScreen = true,
-                            //Frame = false
+                            EnableLargerThanScreen = false
                         };
                     var mainWindow = await Electron.WindowManager
                         .CreateWindowAsync(browserWindowOptions);
+                    
                     mainWindow.SetKiosk(true);
                     mainWindow.OnReadyToShow +=
                         () => mainWindow.Show();

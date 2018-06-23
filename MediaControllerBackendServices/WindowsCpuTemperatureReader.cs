@@ -22,8 +22,8 @@ namespace MediaControllerBackendServices
 
         private static void MyTimerOnElapsed(object sender, ElapsedEventArgs e)
         {
-            if (CurrentTemperature == 35) CurrentTemperature = 36;
-            else CurrentTemperature = 35;
+            if (CurrentTemperature == 35.0) CurrentTemperature = 36.123;
+            else CurrentTemperature = 35.0;
 
         }
 

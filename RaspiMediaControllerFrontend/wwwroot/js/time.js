@@ -6,4 +6,15 @@ connection.on("UpdateTime", (hour, minute) => {
     document.getElementById("timeString").innerHTML = newTime;
 });
 
-connection.start().catch(err => console.error);
+connection.start().catch(function () {
+    setTimeout(function () {
+        connection.start().catch(err => console.error);
+    }, 20000);
+});
+
+connection.disconnected(function () {
+        setTimeout(function () {
+            connection.start().catch(err => console.error);
+        }, 10000);
+    }
+);
