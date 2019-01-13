@@ -17,3 +17,7 @@
 /MediaControllerBackendServices/bin/Debug/netcoreapp2.1/MediaControllerBackendServices.pdb
 /MediaControllerBackendServices/bin/Debug/netcoreapp2.1/MediaControllerBackendServices.dll
 /ElectronFrontend/node_modules
+/ElectronFrontend/bin
+/ElectronFrontend/obj/Debug
+/RaspiFrontendAngular/bin/Microsoft.NodejsTools.WebRole.dll
+/RaspiFrontendAngular/obj/Debug

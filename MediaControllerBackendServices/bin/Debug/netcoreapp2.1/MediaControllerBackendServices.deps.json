@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "1c329af091e2afd01676e312dd77d5fcdc4eb8f1"
+    "signature": "cb75df27a873fbb3a4e34ac9e60e70efb1826911"
   },
   "compilationOptions": {},
   "targets": {
@@ -13,10 +13,32 @@
           "Microsoft.AspNetCore.Server.Kestrel": "2.0.2",
           "Microsoft.AspNetCore.SignalR": "1.0.0-rc1-final",
           "Microsoft.Extensions.Logging.Console": "2.0.1",
+          "Netatmo": "1.2.1",
           "Unosquare.Raspberry.IO": "0.14.0"
         },
         "runtime": {
           "MediaControllerBackendServices.dll": {}
+        }
+      },
+      "Flurl/2.8.0": {
+        "runtime": {
+          "lib/netstandard2.0/Flurl.dll": {
+            "assemblyVersion": "2.8.0.0",
+            "fileVersion": "2.8.0.0"
+          }
+        }
+      },
+      "Flurl.Http/2.4.0": {
+        "dependencies": {
+          "Flurl": "2.8.0",
+          "Newtonsoft.Json": "11.0.2",
+          "System.Text.Encoding.CodePages": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Flurl.Http.dll": {
+            "assemblyVersion": "2.4.0.0",
+            "fileVersion": "2.4.0.0"
+          }
         }
       },
       "Libuv/1.10.0": {
@@ -1154,6 +1176,19 @@
           }
         }
       },
+      "Netatmo/1.2.1": {
+        "dependencies": {
+          "Flurl.Http": "2.4.0",
+          "NodaTime": "2.4.2",
+          "NodaTime.Serialization.JsonNet": "2.0.0"
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/Netatmo.dll": {
+            "assemblyVersion": "1.2.1.0",
+            "fileVersion": "1.2.1.0"
+          }
+        }
+      },
       "Newtonsoft.Json/11.0.2": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {
@@ -1170,6 +1205,26 @@
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.1.20722"
+          }
+        }
+      },
+      "NodaTime/2.4.2": {
+        "runtime": {
+          "lib/netstandard2.0/NodaTime.dll": {
+            "assemblyVersion": "2.4.2.0",
+            "fileVersion": "2.4.2.0"
+          }
+        }
+      },
+      "NodaTime.Serialization.JsonNet/2.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2",
+          "NodaTime": "2.4.2"
+        },
+        "runtime": {
+          "lib/netstandard1.3/NodaTime.Serialization.JsonNet.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
           }
         }
       },
@@ -2425,6 +2480,20 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Flurl/2.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-P79Pqoi+GqVxUcexU9OAI0e5J6u/eRfscRxHqnVdDD7cNhi/OMWgJvdsn56tMlKmOik0P/W7/ZwRgU20up718w==",
+      "path": "flurl/2.8.0",
+      "hashPath": "flurl.2.8.0.nupkg.sha512"
+    },
+    "Flurl.Http/2.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-alaK3NlWrSgIqjQt7A5grfxOVXLoRo2Y/3uQWI+3p/5K3w4VlZPqal49wLU0Ln2vfNLBFmt3hS/Knye3CRmFqQ==",
+      "path": "flurl.http/2.4.0",
+      "hashPath": "flurl.http.2.4.0.nupkg.sha512"
+    },
     "Libuv/1.10.0": {
       "type": "package",
       "serviceable": true,
@@ -3027,6 +3096,13 @@
       "path": "mqttnet/2.8.5",
       "hashPath": "mqttnet.2.8.5.nupkg.sha512"
     },
+    "Netatmo/1.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+M+4iQEOUxrHo/Z9vh1xSdv6olrcFjwhoLo/w60AmMTtZdTYAx5wHrqtZY1FMultBfHgk44Fr2EdANEt1sA7ew==",
+      "path": "netatmo/1.2.1",
+      "hashPath": "netatmo.1.2.1.nupkg.sha512"
+    },
     "Newtonsoft.Json/11.0.2": {
       "type": "package",
       "serviceable": true,
@@ -3040,6 +3116,20 @@
       "sha512": "sha512-W5Ke5xei9yS0ljQZuT75VgSp5M43eCPm5hHAelvKyGGU4dV7hYCmtwdsxoADb/exO6pYHeu/Iki43TdYPzfESQ==",
       "path": "newtonsoft.json.bson/1.0.1",
       "hashPath": "newtonsoft.json.bson.1.0.1.nupkg.sha512"
+    },
+    "NodaTime/2.4.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xQO2618oI3TE1S+dtaagM6ZgE77dKICdq52WgXDkdFRdQvIcJmwmU5XR66Bo3WelKV8/mkJdvwbSmmPwOBFSsA==",
+      "path": "nodatime/2.4.2",
+      "hashPath": "nodatime.2.4.2.nupkg.sha512"
+    },
+    "NodaTime.Serialization.JsonNet/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EcIuzEoEbw1f0BiaUb6mQpOFGaHcHT7U3DODxcXUwVuSiwtPccZGquvZRsCzgUbdWOGjq8S0NHA3WD+w0MLQrA==",
+      "path": "nodatime.serialization.jsonnet/2.0.0",
+      "hashPath": "nodatime.serialization.jsonnet.2.0.0.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
       "type": "package",
