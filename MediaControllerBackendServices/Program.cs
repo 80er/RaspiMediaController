@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Net.Mime;
+using System.Text;
 using System.Threading;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MQTTnet;
+using MQTTnet.Client;
 
 namespace MediaControllerBackendServices
 {
@@ -12,14 +15,37 @@ namespace MediaControllerBackendServices
     {
         static void Main(string[] args)
         {
-            var webHost = new WebHostBuilder()
-                .UseKestrel()
-                // TODO: get rid of this again after further development. just for testing ;)
-                .UseUrls("http://*:5000")
-                .UseStartup<Program>()
-                .Build();
-            webHost.Run();
+            //var webHost = new WebHostBuilder()
+            //    .UseKestrel()
+            //    // TODO: get rid of this again after further development. just for testing ;)
+            //    .UseUrls("http://*:5000")
+            //    .UseStartup<Program>()
+            //    .Build();
+            //webHost.Run();
+            CreateMqtt();
         }
+
+        private static async void CreateMqtt()
+        {
+            try
+            {
+                var mqttFactory = new MqttFactory();
+                var options = new MqttClientOptionsBuilder().WithClientId("MediaServerBackend").WithTcpServer("127.0.0.1", 1883).WithCleanSession().Build();
+
+                var client = mqttFactory.CreateMqttClient();
+
+                var result = client.ConnectAsync(options).Result;
+                var message = new MqttApplicationMessageBuilder().WithPayload("juhu").WithTopic("test_topic").Build();
+                await client.PublishAsync(message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+           
+        }
+
 
         public void ConfigureServices(IServiceCollection services)
         {

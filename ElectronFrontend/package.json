@@ -1,0 +1,12 @@
+{
+  "name": "electron-frontend",
+  "version": "0.0.0",
+  "description": "ElectronFrontend",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "electron": "^4.0.1"
+  }
+}
