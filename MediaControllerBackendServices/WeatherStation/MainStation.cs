@@ -17,7 +17,16 @@ namespace MediaControllerBackendServices.WeatherStation
 
         public double Pressure => MainDevice.DashboardData.Pressure;
 
-        public IEnumerable<IModule> Modules => throw new NotImplementedException();
+        public IEnumerable<IModule> Modules
+        {
+            get
+            {
+                foreach (var module in MainDevice.Modules)
+                {
+                    yield return ModuleFactory.Create(module);
+                }
+            }
+        }
 
         public int CO2 => MainDevice.DashboardData.CO2;
 

@@ -30,6 +30,10 @@ namespace MediaControllerBackendServices
             string device = Environment.GetEnvironmentVariable("NETATMO_DEVICE");
             var mainstation = WeatherStationFactory.Create(client, clientSecret, user, password, device);
             Console.WriteLine(mainstation.ToString());
+            foreach (var module in mainstation.Modules)
+            {
+                Console.WriteLine(module);
+            }
             CreateMqtt();
         }
 
