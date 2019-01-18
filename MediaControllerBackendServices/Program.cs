@@ -2,6 +2,7 @@
 using System.Net.Mime;
 using System.Text;
 using System.Threading;
+using MediaControllerBackendServices.WeatherStation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,13 @@ namespace MediaControllerBackendServices
             //    .UseStartup<Program>()
             //    .Build();
             //webHost.Run();
+            string clientSecret = Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET");
+            string client = Environment.GetEnvironmentVariable("NETATMO_CLIENT");
+            string user = Environment.GetEnvironmentVariable("NETATMO_USER");
+            string password = Environment.GetEnvironmentVariable("NETATMO_PASSWORD");
+            string device = Environment.GetEnvironmentVariable("NETATMO_DEVICE");
+            var mainstation = WeatherStationFactory.Create(client, clientSecret, user, password, device);
+            Console.WriteLine(mainstation.ToString());
             CreateMqtt();
         }
 

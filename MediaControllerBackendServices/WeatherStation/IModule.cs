@@ -7,6 +7,6 @@ namespace MediaControllerBackendServices.WeatherStation
     interface IModule
     {
         ModuleType Type { get; }
-        
+        string Name { get; }   
     }
 }

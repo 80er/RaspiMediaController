@@ -7,7 +7,7 @@ namespace MediaControllerBackendServices.WeatherStation
     interface ITemperatureModule : IModule
     {
         double Temperature { get; }
-        double Humidity { get; }
+        int Humidity { get; }
         // type NAModule1
     }
 }
