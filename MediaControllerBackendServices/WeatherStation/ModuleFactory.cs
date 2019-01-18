@@ -13,6 +13,11 @@ namespace MediaControllerBackendServices.WeatherStation
             {
                 return new ExternalModule(module);
             }
+
+            if (module.Type == "NAModule4")
+            {
+                return new InternalModule(module);
+            }
             return null;
         }
     }
