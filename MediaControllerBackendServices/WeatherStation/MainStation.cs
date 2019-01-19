@@ -22,14 +22,11 @@ namespace MediaControllerBackendServices.WeatherStation
 
         public double Pressure => MainDevice.DashboardData.Pressure;
 
-        public IEnumerable<IModule> Modules
+        public IEnumerable<IModule> GetModules()
         {
-            get
+            foreach (var module in MainDevice.Modules)
             {
-                foreach (var module in MainDevice.Modules)
-                {
-                    yield return ModuleFactory.Create(module);
-                }
+                yield return ModuleFactory.Create(module);
             }
         }
 

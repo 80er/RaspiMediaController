@@ -9,6 +9,6 @@ namespace MediaControllerBackendServices.WeatherStation
         // type = NAMain
         double Noise { get; }
         double Pressure { get; }
-        IEnumerable<IModule> Modules { get; }
+        IEnumerable<IModule> GetModules();
     }
 }

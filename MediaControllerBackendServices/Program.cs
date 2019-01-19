@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Threading;
+using MediaControllerBackendServices.Broker;
+using MediaControllerBackendServices.Messaging;
 using MediaControllerBackendServices.WeatherStation;
 using MQTTnet;
 using MQTTnet.Client;
@@ -9,35 +12,13 @@ namespace MediaControllerBackendServices
     {
         static void Main(string[] args)
         {
-            
-            var mainstation = new MainStation();
-            Console.WriteLine(mainstation.ToString());
-            foreach (var module in mainstation.Modules)
+            // start a MQTT backend e.g. with eclipse-mosquitto and "docker run -it -p 1883:1883 -p 9001:9001 eclipse-mosquitto"
+            var bus = new MessageBus("RaspiBackend", "127.0.0.1", 1883);
+            var broker = new WeatherBroker(bus);
+            while (true)
             {
-                Console.WriteLine(module);
+                Thread.Sleep(1000);
             }
-            CreateMqtt();
-        }
-
-        private static async void CreateMqtt()
-        {
-            try
-            {
-                var mqttFactory = new MqttFactory();
-                var options = new MqttClientOptionsBuilder().WithClientId("MediaServerBackend").WithTcpServer("127.0.0.1", 1883).WithCleanSession().Build();
-
-                var client = mqttFactory.CreateMqttClient();
-
-                var result = client.ConnectAsync(options).Result;
-                var message = new MqttApplicationMessageBuilder().WithPayload("juhu").WithTopic("test_topic").Build();
-                await client.PublishAsync(message);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-           
         }
     }
 }
