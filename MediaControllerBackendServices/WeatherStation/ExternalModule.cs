@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Netatmo.Models.Client.Energy;
 using Netatmo.Models.Client.Weather.StationsData;
 
 namespace MediaControllerBackendServices.WeatherStation
@@ -8,10 +9,19 @@ namespace MediaControllerBackendServices.WeatherStation
     class ExternalModule : ITemperatureModule
     {
         private Module Module { get; }
-        public ExternalModule(Module module) => Module = module;
-        public double Temperature => double.Parse((string)Module.DashboardData["Temperature"]);
 
-        public int Humidity => Int32.Parse((string)Module.DashboardData["Humidity"]);
+        public ExternalModule(Module module)
+        {
+            Module = module;
+            var data = Newtonsoft.Json.JsonConvert.DeserializeObject<DashboardData>(Module.DashboardData.ToString());
+            Temperature = data.Temperature;
+            Humidity = data.Humidity;
+        }
+
+        public double Temperature { get; }
+
+
+        public int Humidity { get; }
 
         public ModuleType Type => ModuleType.External;
 
@@ -25,5 +35,13 @@ namespace MediaControllerBackendServices.WeatherStation
             buffer.AppendLine($"Humidity: {Humidity}%");
             return buffer.ToString();
         }
+
+        class DashboardData
+        {
+            public double Temperature { get; set; }
+            public int Humidity { get; set; }
+        }
     }
+
+    
 }

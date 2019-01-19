@@ -8,12 +8,19 @@ namespace MediaControllerBackendServices.WeatherStation
     class InternalModule : IAirModule
     {
         private Module Module { get; }
-        public InternalModule(Module module) => Module = module;
+        public InternalModule(Module module)
+        {
+            Module = module;
+            var data = Newtonsoft.Json.JsonConvert.DeserializeObject<DashboardData>(Module.DashboardData.ToString());
+            Temperature = data.Temperature;
+            Humidity = data.Humidity;
+            CO2 = data.CO2;
+        }
         public ModuleType Type => ModuleType.Internal;
         public string Name => Module.ModuleName;
-        public double Temperature => double.Parse((string)Module.DashboardData["Temperature"]);
-        public int Humidity => Int32.Parse((string)Module.DashboardData["Humidity"]);
-        public int CO2 => Int32.Parse((string)Module.DashboardData["CO2"]);
+        public double Temperature { get; }
+        public int Humidity { get; }
+        public int CO2 { get; }
 
         public override string ToString()
         {
@@ -23,6 +30,13 @@ namespace MediaControllerBackendServices.WeatherStation
             buffer.AppendLine($"Humidity: {Humidity}%");
             buffer.AppendLine($"CO2: {CO2}");
             return buffer.ToString();
+        }
+
+        class DashboardData
+        {
+            public double Temperature { get; set; }
+            public int Humidity { get; set; }
+            public int CO2 { get; set; }
         }
     }
 }

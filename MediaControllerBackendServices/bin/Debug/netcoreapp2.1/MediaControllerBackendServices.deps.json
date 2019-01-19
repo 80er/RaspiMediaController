@@ -1,23 +1,36 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "cb75df27a873fbb3a4e34ac9e60e70efb1826911"
+    "signature": "582037496b6fe4c7d47e3ce8c3816dbebf8fca95"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.1": {
       "MediaControllerBackendServices/1.0.0": {
         "dependencies": {
+          "Autofac": "4.8.1",
           "MQTTnet": "2.8.5",
           "Microsoft.AspNetCore.Mvc": "2.0.3",
           "Microsoft.AspNetCore.Server.Kestrel": "2.0.2",
           "Microsoft.AspNetCore.SignalR": "1.0.0-rc1-final",
           "Microsoft.Extensions.Logging.Console": "2.0.1",
           "Netatmo": "1.2.1",
+          "Newtonsoft.Json": "12.0.1",
           "Unosquare.Raspberry.IO": "0.14.0"
         },
         "runtime": {
           "MediaControllerBackendServices.dll": {}
+        }
+      },
+      "Autofac/4.8.1": {
+        "dependencies": {
+          "System.ComponentModel": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {
+            "assemblyVersion": "4.8.1.0",
+            "fileVersion": "4.8.1.0"
+          }
         }
       },
       "Flurl/2.8.0": {
@@ -31,7 +44,7 @@
       "Flurl.Http/2.4.0": {
         "dependencies": {
           "Flurl": "2.8.0",
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.1",
           "System.Text.Encoding.CodePages": "4.4.0"
         },
         "runtime": {
@@ -313,7 +326,7 @@
           "Microsoft.AspNetCore.Http.Connections.Common": "1.0.0-rc1-final",
           "Microsoft.AspNetCore.Routing": "2.1.0-rc1-final",
           "Microsoft.AspNetCore.WebSockets": "2.1.0-rc1-final",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.1"
         },
         "runtime": {
           "lib/netcoreapp2.1/Microsoft.AspNetCore.Http.Connections.dll": {
@@ -325,7 +338,7 @@
       "Microsoft.AspNetCore.Http.Connections.Common/1.0.0-rc1-final": {
         "dependencies": {
           "Microsoft.AspNetCore.Connections.Abstractions": "2.1.0-rc1-final",
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.1",
           "System.Buffers": "4.5.0-rc1"
         },
         "runtime": {
@@ -363,7 +376,7 @@
       "Microsoft.AspNetCore.JsonPatch/2.0.0": {
         "dependencies": {
           "Microsoft.CSharp": "4.4.0",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.dll": {
@@ -714,7 +727,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Connections.Abstractions": "2.1.0-rc1-final",
           "Microsoft.Extensions.Options": "2.1.0-rc1-final",
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.1",
           "System.Buffers": "4.5.0-rc1"
         },
         "runtime": {
@@ -744,7 +757,7 @@
       "Microsoft.AspNetCore.SignalR.Protocols.Json/1.0.0-rc1-final": {
         "dependencies": {
           "Microsoft.AspNetCore.SignalR.Common": "1.0.0-rc1-final",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll": {
@@ -962,7 +975,7 @@
       "Microsoft.Extensions.DependencyModel/2.0.3": {
         "dependencies": {
           "Microsoft.DotNet.PlatformAbstractions": "2.0.3",
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.1",
           "System.Diagnostics.Debug": "4.3.0",
           "System.Dynamic.Runtime": "4.3.0",
           "System.Linq": "4.3.0"
@@ -1189,17 +1202,17 @@
           }
         }
       },
-      "Newtonsoft.Json/11.0.2": {
+      "Newtonsoft.Json/12.0.1": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {
-            "assemblyVersion": "11.0.0.0",
-            "fileVersion": "11.0.2.21924"
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.1.22727"
           }
         }
       },
       "Newtonsoft.Json.Bson/1.0.1": {
         "dependencies": {
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.1"
         },
         "runtime": {
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {
@@ -1218,7 +1231,7 @@
       },
       "NodaTime.Serialization.JsonNet/2.0.0": {
         "dependencies": {
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.1",
           "NodaTime": "2.4.2"
         },
         "runtime": {
@@ -2480,6 +2493,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Autofac/4.8.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GYRLxd2wCzhvee2u1vs3AbUbF4CHDWfD7BCNjD3Vxb4wxQz3HC8bPm9Sj9uOT0gE8a6PC2fx1zufmhLgxK+cZg==",
+      "path": "autofac/4.8.1",
+      "hashPath": "autofac.4.8.1.nupkg.sha512"
+    },
     "Flurl/2.8.0": {
       "type": "package",
       "serviceable": true,
@@ -3103,12 +3123,12 @@
       "path": "netatmo/1.2.1",
       "hashPath": "netatmo.1.2.1.nupkg.sha512"
     },
-    "Newtonsoft.Json/11.0.2": {
+    "Newtonsoft.Json/12.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-znZGbws7E4BA9jxNZ7FuiIRI3C9hrgatVQSTKhIYZYNOud4M5VfGlTYi6RdYO5sQrebFuF/g9UEV3hOxDMXF6Q==",
-      "path": "newtonsoft.json/11.0.2",
-      "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
+      "sha512": "sha512-jmVyoEyk0In8r+AObYQyFKVFm7uSRzE0XSHSbEtBJcZDMV6DqJoyB4FLcHwprPVhAh826so0db3DIKXVnpGoPA==",
+      "path": "newtonsoft.json/12.0.1",
+      "hashPath": "newtonsoft.json.12.0.1.nupkg.sha512"
     },
     "Newtonsoft.Json.Bson/1.0.1": {
       "type": "package",
