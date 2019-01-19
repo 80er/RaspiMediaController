@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Netatmo;
 using Netatmo.Models.Client.Weather.StationsData;
 
 namespace MediaControllerBackendServices.WeatherStation
@@ -9,7 +11,10 @@ namespace MediaControllerBackendServices.WeatherStation
     {
         private Device MainDevice { get; }
 
-        public MainStation(Device mainDevice) => MainDevice = mainDevice;
+        public MainStation()
+        {
+            MainDevice = Init();
+        }
 
         public string Name => MainDevice.ModuleName;
 
@@ -35,6 +40,22 @@ namespace MediaControllerBackendServices.WeatherStation
         public int Humidity => MainDevice.DashboardData.HumidityPercent;
 
         public ModuleType Type => ModuleType.Main;
+
+        private static Device Init()
+        {
+            string clientSecret = Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET");
+            string clientId = Environment.GetEnvironmentVariable("NETATMO_CLIENT");
+            string user = Environment.GetEnvironmentVariable("NETATMO_USER");
+            string password = Environment.GetEnvironmentVariable("NETATMO_PASSWORD");
+            string deviceId = Environment.GetEnvironmentVariable("NETATMO_DEVICE");
+            var clock = NodaTime.SystemClock.Instance;
+            var client = new Netatmo.Client(clock, "https://api.netatmo.com/", clientId, clientSecret);
+            client.GenerateToken(user, password, new Scope[] { Scope.StationRead }).Wait();
+
+            var token = client.CredentialManager.CredentialToken;
+            var station = client.Weather.GetStationsData(deviceId).Result.Body.Devices.First();
+            return station;
+        }
 
         public override string ToString()
         {

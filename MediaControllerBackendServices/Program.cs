@@ -10,7 +10,7 @@ namespace MediaControllerBackendServices
         static void Main(string[] args)
         {
             
-            var mainstation = WeatherStationFactory.Create();
+            var mainstation = new MainStation();
             Console.WriteLine(mainstation.ToString());
             foreach (var module in mainstation.Modules)
             {
