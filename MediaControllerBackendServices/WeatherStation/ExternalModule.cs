@@ -6,7 +6,7 @@ using Netatmo.Models.Client.Weather.StationsData;
 
 namespace MediaControllerBackendServices.WeatherStation
 {
-    class ExternalModule : ITemperatureModule
+    class ExternalModule : ITemperatureModule, IEquatable<ITemperatureModule>
     {
         private Module Module { get; }
 
@@ -40,6 +40,30 @@ namespace MediaControllerBackendServices.WeatherStation
         {
             public double Temperature { get; set; }
             public int Humidity { get; set; }
+        }
+
+        public bool Equals(ITemperatureModule other)
+        {
+            return Equals(Name, other.Name) && Temperature.Equals(other.Temperature) && Humidity == other.Humidity;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ExternalModule) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Module != null ? Module.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Temperature.GetHashCode();
+                hashCode = (hashCode * 397) ^ Humidity;
+                return hashCode;
+            }
         }
     }
 

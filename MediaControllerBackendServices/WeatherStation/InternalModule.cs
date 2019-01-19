@@ -5,7 +5,7 @@ using Netatmo.Models.Client.Weather.StationsData;
 
 namespace MediaControllerBackendServices.WeatherStation
 {
-    class InternalModule : IAirModule
+    class InternalModule : IAirModule, IEquatable<IAirModule>
     {
         private Module Module { get; }
         public InternalModule(Module module)
@@ -37,6 +37,31 @@ namespace MediaControllerBackendServices.WeatherStation
             public double Temperature { get; set; }
             public int Humidity { get; set; }
             public int CO2 { get; set; }
+        }
+
+        public bool Equals(IAirModule other)
+        {
+            return Equals(Name, other.Name) && Temperature.Equals(other.Temperature) && Humidity == other.Humidity && CO2 == other.CO2;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((InternalModule) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Module != null ? Module.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Temperature.GetHashCode();
+                hashCode = (hashCode * 397) ^ Humidity;
+                hashCode = (hashCode * 397) ^ CO2;
+                return hashCode;
+            }
         }
     }
 }

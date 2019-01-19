@@ -7,7 +7,7 @@ using Netatmo.Models.Client.Weather.StationsData;
 
 namespace MediaControllerBackendServices.WeatherStation
 {
-    class MainStation : IMainStation
+    class MainStation : IMainStation, IEquatable<IMainStation>
     {
         private Device MainDevice { get; }
 
@@ -66,5 +66,27 @@ namespace MediaControllerBackendServices.WeatherStation
             return buffer.ToString();
         }
 
+        public bool Equals(IMainStation other)
+        {
+            return Name == other.Name && 
+                   Temperature == other.Temperature && 
+                   CO2 == other.CO2 && 
+                   Humidity == other.Humidity &&
+                   Pressure == other.Pressure && 
+                   Noise == other.Noise;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((MainStation) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (MainDevice != null ? MainDevice.GetHashCode() : 0);
+        }
     }
 }

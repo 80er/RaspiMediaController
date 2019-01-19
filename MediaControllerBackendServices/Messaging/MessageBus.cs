@@ -12,11 +12,12 @@ namespace MediaControllerBackendServices.Messaging
         public MessageBus(string clientId, string uri, int port)
         {
             var mqttFactory = new MqttFactory();
-            var options = new MqttClientOptionsBuilder().WithClientId(clientId).WithTcpServer(uri, port).WithCleanSession().Build();
+            var options = new MqttClientOptionsBuilder().WithClientId(clientId).WithTcpServer(uri, port).WithCleanSession().WithKeepAlivePeriod(TimeSpan.FromSeconds(10)).Build();
 
             MqttClient = mqttFactory.CreateMqttClient();
 
             MqttClient.ConnectAsync(options);
+            
         }
         public void SendMessage(IMessage message)
         {

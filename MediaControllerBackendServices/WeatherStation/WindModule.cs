@@ -5,7 +5,7 @@ using Netatmo.Models.Client.Weather.StationsData;
 
 namespace MediaControllerBackendServices.WeatherStation
 {
-    class WindModule : IWindModule
+    class WindModule : IWindModule, IEquatable<IWindModule>
     {
         private Module Module { get; }
 
@@ -29,6 +29,30 @@ namespace MediaControllerBackendServices.WeatherStation
         {
             public double WindStrength { get; set; }
             public double WindAngle { get; set; }
+        }
+
+        public bool Equals(IWindModule other)
+        {
+            return Equals(Name, other.Name) && WindStrength.Equals(other.WindStrength) && WindAngle.Equals(other.WindAngle);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((WindModule) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Module != null ? Module.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ WindStrength.GetHashCode();
+                hashCode = (hashCode * 397) ^ WindAngle.GetHashCode();
+                return hashCode;
+            }
         }
     }
 }

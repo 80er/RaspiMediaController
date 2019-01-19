@@ -15,6 +15,7 @@ namespace MediaControllerBackendServices.Broker
         private Timer Timer { get; }
         private static string myTopic = "weather_data";
 
+        private static Dictionary<string, object> myModuleCache = new Dictionary<string, object>();
 
         public WeatherBroker(IMessageBus messageBus)
         {
@@ -43,9 +44,20 @@ namespace MediaControllerBackendServices.Broker
 
         private static void SendMesage(IMessageBus bus, IModule module)
         {
-            var payload = JsonConvert.SerializeObject(module);
-            var message = new Message(myTopic, payload);
-            bus.SendMessage(message);
+            bool freshlyAdded = false;
+            if (!myModuleCache.ContainsKey(module.Name))
+            {
+                myModuleCache.Add(module.Name, module);
+                freshlyAdded = true;
+            }
+
+            if (freshlyAdded || !myModuleCache[module.Name].Equals(module))
+            {
+                myModuleCache[module.Name] = module;
+                var payload = JsonConvert.SerializeObject(module);
+                var message = new Message(myTopic, payload);
+                bus.SendMessage(message);
+            }
         }
 
     }
