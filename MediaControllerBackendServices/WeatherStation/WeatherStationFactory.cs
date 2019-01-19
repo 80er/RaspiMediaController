@@ -8,8 +8,13 @@ namespace MediaControllerBackendServices.WeatherStation
 {
     internal static class WeatherStationFactory
     {
-        public static IMainStation Create(string clientId, string clientSecret, string user, string password, string deviceId)
+        public static IMainStation Create()
         {
+            string clientSecret = Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET");
+            string clientId = Environment.GetEnvironmentVariable("NETATMO_CLIENT");
+            string user = Environment.GetEnvironmentVariable("NETATMO_USER");
+            string password = Environment.GetEnvironmentVariable("NETATMO_PASSWORD");
+            string deviceId = Environment.GetEnvironmentVariable("NETATMO_DEVICE");
             var clock = NodaTime.SystemClock.Instance;
             var client = new Netatmo.Client(clock, "https://api.netatmo.com/", clientId, clientSecret);
             client.GenerateToken(user, password, new Scope[] { Scope.StationRead }).Wait();
