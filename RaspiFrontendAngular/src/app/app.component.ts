@@ -20,7 +20,7 @@ export class AppComponent {
     const options: mqtt.IClientOptions = {
       'keepalive': 5000,
       'reconnectPeriod': 10000,
-      'clientId': 'RASPITV',
+      'clientId': 'RaspiWeatherStation',
       'host': 'localhost',
       'port': 9001
     };
