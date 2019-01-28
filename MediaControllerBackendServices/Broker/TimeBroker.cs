@@ -19,14 +19,11 @@ namespace MediaControllerBackendServices.Broker
             MessageBus = messageBus;
             myLastMinute = -1;
             TimerElapsed(null, null);
-            myLastMinute = DateTime.Now.Minute;
-            StartTimerAfterFullMinute();
+            StartTimer();
         }
 
-        public void StartTimerAfterFullMinute()
+        public void StartTimer()
         {
-            var sleepSeconds = 59 - DateTime.Now.Second;
-            Thread.Sleep(sleepSeconds * 1000);
             Timer = new Timer
             {
                 Interval = 500
@@ -35,7 +32,7 @@ namespace MediaControllerBackendServices.Broker
             Timer.Start();
         }
 
-        private async void TimerElapsed(object sender, ElapsedEventArgs e)
+        private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
             try
             {
