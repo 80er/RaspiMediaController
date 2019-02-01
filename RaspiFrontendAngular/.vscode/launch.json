@@ -5,11 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "sourceMapPathOverrides": {
+                 "webpack:///./*":   "${workspaceFolder}/*",                    // Example: "webpack:///./src/app.js" -> "/Users/me/project/src/app.js",
+            },
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:4200",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}/dist"
         }
     ]
 }
