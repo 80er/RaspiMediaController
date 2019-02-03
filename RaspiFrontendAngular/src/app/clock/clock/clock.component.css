@@ -1,12 +1,20 @@
 .clock {
     font-family: "Times New Roman", Times, serif;
     font-size: 120px;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
     color: gray;
     overflow: hidden;
-    position: absolute;
     opacity: 0.8;
+  }
+  .left {
+    float: left;
+    text-align: right;
+    width: 50%;
+  }
+  .right {
+    float: right;
+    text-align: left;
+    width: 50%;
+  }
+  .small {
+    font-size: 45px;
   }

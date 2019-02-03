@@ -10,8 +10,13 @@ export class ClockComponent implements OnInit {
 
   public hour: string;
   public minute: string;
+  public day: string;
+  public dayname: string;
+  public year: string;
+  public month: string;
   constructor(private _messageQueue: MessageQueueComponent) { 
-    
+    this.hour = this.minute = this.day = this.year = this.month = "1";
+    this.dayname = "Montag";
   }
 
   ngOnInit() {
@@ -25,5 +30,9 @@ export class ClockComponent implements OnInit {
     console.info('hour' + data.Hour);
     this.hour = data.Hour;
     this.minute = data.Minute;
+    this.day = data.Day;
+    this.dayname = data.Dayname;
+    this.month = data.Month;
+    this.year = data.Year;
   }
 }
