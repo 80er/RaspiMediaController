@@ -35,6 +35,10 @@ export class WeatherComponent implements OnInit {
         {
           element.humidity = data.Humidity;
           element.temperature = data.Temperature;
+          element.co2 = data.CO2;
+          if(data.Type == 0) {
+            element.pressure = data.Pressure;
+          }
           found = true;
         }
       });
