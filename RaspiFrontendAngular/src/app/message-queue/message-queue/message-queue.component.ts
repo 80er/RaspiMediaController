@@ -14,11 +14,11 @@ import { Subject } from 'rxjs/Rx';
 })
 export class MessageQueueComponent implements OnInit {
   
-  public messages: Subject<mqtt.Packet>;
+  public timeMessages: Subject<string>;
   status: Array<string> = [];
   private client: mqtt.Client;
   constructor() {
-    this.messages = new Subject<mqtt.Packet>();
+    this.timeMessages = new Subject<string>();
     const options: mqtt.IClientOptions = {
       'keepalive': 5000,
       'reconnectPeriod': 10000,
@@ -42,10 +42,9 @@ export class MessageQueueComponent implements OnInit {
     const topic = args[0],
       message = args[1],
       packet: mqtt.Packet = args[2];
-    if (message.toString()) {
-      console.warn(message.toString());
-      status = message.toString();
-      this.messages.next(message);
+      console.info(topic);
+    if (topic == 'time_data') {
+      this.timeMessages.next(message.toString());
     } else {
       console.warn('Empty message received!');
     }
