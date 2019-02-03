@@ -15,10 +15,13 @@ import { Subject } from 'rxjs/Rx';
 export class MessageQueueComponent implements OnInit {
   
   public timeMessages: Subject<string>;
+  public weatherMessage: Subject<string>;
+
   status: Array<string> = [];
   private client: mqtt.Client;
   constructor() {
     this.timeMessages = new Subject<string>();
+    this.weatherMessage = new Subject<string>();
     const options: mqtt.IClientOptions = {
       'keepalive': 5000,
       'reconnectPeriod': 10000,
@@ -42,11 +45,13 @@ export class MessageQueueComponent implements OnInit {
     const topic = args[0],
       message = args[1],
       packet: mqtt.Packet = args[2];
-      console.info(topic);
     if (topic == 'time_data') {
       this.timeMessages.next(message.toString());
+    }
+    else if(topic == "weather_data") {
+      this.weatherMessage.next(message.toString());
     } else {
-      console.warn('Empty message received!');
+      console.warn('Message from unknown topic received: ' + topic);
     }
   }
 }

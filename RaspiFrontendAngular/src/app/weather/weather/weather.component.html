@@ -1,3 +1,19 @@
-<p>
-  weather works!
-</p>
+<div class="weather"> 
+    <div class="left">Temperatur: {{temperature}}°C</div>
+    <div class="right">Luftfeuchtigkeit: {{humidity | number: '2.0'}}%</div>
+    <div>
+      <table class="small">
+        <tr>
+        <td *ngFor="let module of modules">
+          <table>
+            <tr>{{ module.name }}</tr>
+            <tr>Temperatur: {{module.temperature}}°C
+            <tr>Luftfeuchtigkeit: {{module.humidity | number: '2.0'}}%</tr>
+            <tr>CO2: {{module.co2 | number: '2.0'}}ppm</tr>
+            <tr *ngIf="module.type == 0">Luftdruck: {{module.pressure | number: '4.0'}}mbar</tr>
+          </table>
+        </td>
+      </tr>
+      </table>
+      </div>
+</div>

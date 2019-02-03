@@ -1,0 +1,20 @@
+.weather {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 30px;
+    color: gray;
+    overflow: hidden;
+    opacity: 0.8;
+  }
+  .left {
+    float: left;
+    text-align: right;
+    width: 50%;
+  }
+  .right {
+    float: right;
+    text-align: left;
+    width: 50%;
+  }
+  .small {
+    font-size: 15px;
+  }
