@@ -8,6 +8,8 @@ import { MessageQueueComponent } from 'src/app/message-queue/message-queue/messa
 })
 export class ClockComponent implements OnInit {
 
+  public hour: string;
+  public minute: string;
   constructor(private _messageQueue: MessageQueueComponent) { 
     
   }
@@ -21,5 +23,7 @@ export class ClockComponent implements OnInit {
     console.info('in clock' + message);
     const data = JSON.parse(message);
     console.info('hour' + data.Hour);
+    this.hour = data.Hour;
+    this.minute = data.Minute;
   }
 }
