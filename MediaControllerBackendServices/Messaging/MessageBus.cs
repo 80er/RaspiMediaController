@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Protocol;
@@ -9,21 +11,60 @@ namespace MediaControllerBackendServices.Messaging
 {
     internal class MessageBus : IMessageBus
     {
-        private IMqttClient MqttClient { get; }
+        private IMqttClient MqttClient { get; set; }
+        private static string ClientId { get; set; }
+        private static string Uri { get; set; }
+        private static int Port { get; set; }
         public MessageBus(string clientId, string uri, int port)
         {
-            var mqttFactory = new MqttFactory();
-            var options = new MqttClientOptionsBuilder().WithClientId(clientId).WithWebSocketServer($"{uri}:{port}").WithCleanSession(true).WithKeepAlivePeriod(TimeSpan.FromSeconds(10)).Build();
+           ClientId = clientId;
+           Uri = uri;
+           Port = port;
+           Connect();
+        }
 
-            MqttClient = mqttFactory.CreateMqttClient();
+        private async void Connect()
+        {
+            MqttClient = GetOrCreateClient();
+            var options = CreateOptions();
+            try
+            {
+                await MqttClient.ConnectAsync(options);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
             
+        }
 
-            MqttClient.Connected += MqttClientOnConnected;
+        private IMqttClient GetOrCreateClient()
+        {
+            if (MqttClient != null)
+            {
+                return MqttClient;
+            }
+            var mqttFactory = new MqttFactory();
+            var mqttClient = mqttFactory.CreateMqttClient();
+            mqttClient.Connected += MqttClientOnConnected;
+            mqttClient.ApplicationMessageReceived += MqttClientOnApplicationMessageReceived;
+            mqttClient.Disconnected += MqttClientOnDisconnected;
+            return mqttClient;
+        }
 
-            MqttClient.ConnectAsync(options);
+        private void MqttClientOnDisconnected(object sender, MqttClientDisconnectedEventArgs e)
+        {
+            var client = GetOrCreateClient();
+            while (!client.IsConnected)
+            {
+                Thread.Sleep(500);
+                Connect();
+            }
+        }
 
-            MqttClient.ApplicationMessageReceived += MqttClientOnApplicationMessageReceived;
-
+        private static IMqttClientOptions CreateOptions()
+        {
+            return new MqttClientOptionsBuilder().WithClientId(ClientId).WithWebSocketServer($"{Uri}:{Port}").WithCleanSession(true).WithKeepAlivePeriod(TimeSpan.FromSeconds(10)).Build();
         }
 
         private void MqttClientOnApplicationMessageReceived(object sender, MqttApplicationMessageReceivedEventArgs e)
