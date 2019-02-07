@@ -50,7 +50,22 @@ namespace MediaControllerBackendServices.WeatherStation
             client.GenerateToken(user, password, new Scope[] { Scope.StationRead }).Wait();
 
             var token = client.CredentialManager.CredentialToken;
-            var station = client.Weather.GetStationsData(deviceId).Result.Body.Devices.First();
+            Console.WriteLine($"Aquired token: {token.AccessToken}");
+            Device station;
+            client.CredentialManager.RefreshToken().Wait();
+            try
+            {
+                station = client.Weather.GetStationsData(deviceId).Result.Body.Devices.First();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                client.CredentialManager.RefreshToken().Wait();
+                token = client.CredentialManager.CredentialToken;
+                Console.WriteLine($"Aquired token: {token.AccessToken}");
+                station = client.Weather.GetStationsData(deviceId).Result.Body.Devices.First();
+            }
+            
             return station;
         }
 

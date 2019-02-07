@@ -26,7 +26,7 @@ export class MessageQueueComponent implements OnInit {
       'keepalive': 5000,
       'reconnectPeriod': 10000,
       'clientId': 'RaspiWeatherStation',
-      'host': 'localhost',
+      'host': '192.168.1.2',
       'port': 9001
     };
 
@@ -38,6 +38,14 @@ export class MessageQueueComponent implements OnInit {
    }
 
   ngOnInit() {
+  }
+
+  public send_weather_request = (...args: any[]) => {
+    this.client.publish('weather_data', "resend_all");
+  }
+
+  public send_time_request = (...args: any[]) => {
+    this.client.publish('time_data', "resend_all");
   }
 
   private on_message = (...args: any[]) => {

@@ -17,9 +17,23 @@ namespace MediaControllerBackendServices.Broker
         public TimeBroker(IMessageBus messageBus)
         {
             MessageBus = messageBus;
+            MessageBus.MessageReceived += MessageBusOnMessageReceived;
             myLastMinute = -1;
             TimerElapsed(null, null);
             StartTimer();
+        }
+
+        private void MessageBusOnMessageReceived(object sender, MessageReceivedArgs e)
+        {
+            if (e.Message.Topic != myTopic)
+            {
+                return;
+            }
+
+            if (e.Message.Payload == "resend_all")
+            {
+                TimerElapsed(null, null, true);
+            }
         }
 
         public void StartTimer()
@@ -34,10 +48,15 @@ namespace MediaControllerBackendServices.Broker
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
+            TimerElapsed(sender, e, false);
+        }
+
+        private void TimerElapsed(object sender, ElapsedEventArgs e, bool forceSend)
+        {
             try
             {
                 var time = new Time();
-                if (time.Minute != myLastMinute)
+                if (time.Minute != myLastMinute || forceSend)
                 {
                     myLastMinute = time.Minute;
                     var payload = JsonConvert.SerializeObject(time);

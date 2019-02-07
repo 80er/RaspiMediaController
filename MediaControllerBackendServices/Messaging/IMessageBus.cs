@@ -6,6 +6,7 @@ namespace MediaControllerBackendServices.Messaging
 {
     interface IMessageBus
     {
+        event EventHandler<MessageReceivedArgs> MessageReceived;
         void SendMessage(IMessage message);
     }
 }

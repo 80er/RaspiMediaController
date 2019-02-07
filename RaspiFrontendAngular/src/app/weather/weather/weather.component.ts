@@ -19,10 +19,12 @@ export class WeatherComponent implements OnInit {
 
   ngOnInit() {
     this._messageQueue.weatherMessage.subscribe((data) => this.on_message(data));
+    this._messageQueue.send_weather_request();
   }
 
   private on_message = (...args: any[]) => {
     const message = args[0];
+    if(message == "resend_all") return;
     const data = JSON.parse(message);
     if(data.Type == 1)
     {

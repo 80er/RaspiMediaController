@@ -21,11 +21,13 @@ export class ClockComponent implements OnInit {
 
   ngOnInit() {
     this._messageQueue.timeMessages.subscribe((data) => this.on_message(data));
+    this._messageQueue.send_time_request();
   }
 
   private on_message = (...args: any[]) => {
     const message = args[0];
     console.info('in clock' + message);
+    if(message == "resend_all") return;
     const data = JSON.parse(message);
     console.info('hour' + data.Hour);
     this.hour = data.Hour;

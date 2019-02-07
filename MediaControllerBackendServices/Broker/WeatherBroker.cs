@@ -14,7 +14,7 @@ namespace MediaControllerBackendServices.Broker
         private IMessageBus MessageBus { get; }
         private Timer Timer { get; }
         private static string myTopic = "weather_data";
-
+        private bool myResendAll;
         private static Dictionary<string, object> myModuleCache = new Dictionary<string, object>();
 
         public WeatherBroker(IMessageBus messageBus)
@@ -25,6 +25,16 @@ namespace MediaControllerBackendServices.Broker
             Timer.Enabled = true;
             TimerOnElapsed(null, null);
             Timer.Start();
+            messageBus.MessageReceived += MessageBusOnMessageReceived;
+        }
+
+        private void MessageBusOnMessageReceived(object sender, MessageReceivedArgs e)
+        {
+            if (e.Message.Topic == myTopic && e.Message.Payload == "resend_all")
+            {
+                myResendAll = true;
+                TimerOnElapsed(null, null);
+            }
         }
 
         private static object myLockObject = new object();
@@ -34,15 +44,17 @@ namespace MediaControllerBackendServices.Broker
             {
                 // TODO: have to inject somehow main station....
                 var station = new MainStation();
-                SendMesage(MessageBus, (IAirModule)station);
+                SendMesage(MessageBus, (IAirModule)station, myResendAll);
                 foreach (var module in station.GetModules())
                 {
-                    SendMesage(MessageBus, module);
+                    SendMesage(MessageBus, module, myResendAll);
                 }
+
+                myResendAll = false;
             }
         }
 
-        private static void SendMesage(IMessageBus bus, IModule module)
+        private static void SendMesage(IMessageBus bus, IModule module, bool sendForSure)
         {
             bool freshlyAdded = false;
             if (!myModuleCache.ContainsKey(module.Name))
@@ -51,7 +63,7 @@ namespace MediaControllerBackendServices.Broker
                 freshlyAdded = true;
             }
 
-            if (freshlyAdded || !myModuleCache[module.Name].Equals(module))
+            if (freshlyAdded || !myModuleCache[module.Name].Equals(module) || sendForSure)
             {
                 myModuleCache[module.Name] = module;
                 var payload = JsonConvert.SerializeObject(module);
