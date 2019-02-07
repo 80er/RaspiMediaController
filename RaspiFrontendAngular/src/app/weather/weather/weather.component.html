@@ -11,10 +11,10 @@
     </div>
   </div>
     <div>
-      <table class="small">
+      <table class="componenttable">
         <tr>
         <td *ngFor="let module of modules">
-          <table>
+          <table class="moduletable">
             <tr>{{ module.name }}</tr>
             <tr><img src="assets/img/weather/temperature.png" width="25px" height="25px"/>{{module.temperature}}°C
             <tr><img src="assets/img/weather/humidity.png" width="25px" height="25px"/>{{module.humidity | number: '2.0'}}%</tr>
