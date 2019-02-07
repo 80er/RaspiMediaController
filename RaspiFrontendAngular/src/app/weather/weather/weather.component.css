@@ -1,19 +1,54 @@
 .weather {
     font-family: "Times New Roman", Times, serif;
-    font-size: 30px;
+    font-size: 40px;
     color: gray;
     overflow: hidden;
     opacity: 0.8;
+    width: 800px;
+    height: 100%;
+    position: relative;
   }
-  .left {
+  .externalcontainer {
+    align-self: center;
+    width: 800px;
+    height: 100px;
+    box-sizing: border-box;
+    vertical-align: middle;
+  }
+  .leftimg {
     float: left;
-    text-align: right;
-    width: 50%;
+    position: relative;
+    height: 50px;
+    width: 50px;
+    left: 150px;
+    padding: 5px;
+    vertical-align: middle;
+  }  
+  .lefttext {
+    display: table-cell;
+    padding: 10px;
+    float: left;
+    left: 150px;
+    position: relative;
+    height: 50px;
+    vertical-align: middle;
   }
-  .right {
-    float: right;
-    text-align: left;
-    width: 50%;
+  .rightimg {
+    position: absolute;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    left: 340px;
+    vertical-align: middle;
+  }
+  .righttext {
+    display: table-cell;
+    padding: 10px;
+    float: left;
+    left: 230px;
+    position: relative;
+    height: 50px;
+    vertical-align: middle;
   }
   .small {
     font-size: 15px;
