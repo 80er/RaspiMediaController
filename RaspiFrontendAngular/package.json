@@ -3,8 +3,6 @@
   "version": "0.0.0",
   "main": "main.js",
   "scripts": {
-    "electron": "ng build --base-href ./ && electron .",
-    "electron-dbg": "ng build --base-href ./ && electron --inspect-brk .",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -26,7 +24,7 @@
     "mqtt": "^2.18.8",
     "process": "^0.11.10",
     "rxjs": "~6.3.3",
-    "rxjs-compat": "^6.3.3",
+    "rxjs-compat": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "^0.8.29"
   },
@@ -39,7 +37,6 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
-    "electron": "^4.0.2",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.1.1",
@@ -50,6 +47,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "^3.2.4"
+    "typescript": "~3.2.4"
   }
 }
