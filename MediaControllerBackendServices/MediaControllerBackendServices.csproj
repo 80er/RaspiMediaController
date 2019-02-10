@@ -25,4 +25,10 @@
     <PackageReference Include="Unosquare.Raspberry.IO" Version="0.14.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update=".dockerignore">
+      <DependentUpon>Dockerfile</DependentUpon>
+    </None>
+  </ItemGroup>
+
 </Project>
