@@ -12,6 +12,11 @@ namespace MediaControllerBackendServices
             try
             {
                 Console.WriteLine("Starting up");
+                Console.WriteLine($"NETATMO_CLIENT_SECRET={Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET")}");
+                Console.WriteLine($"NETATMO_CLIENT={Environment.GetEnvironmentVariable("NETATMO_CLIENT")}");
+                Console.WriteLine($"NETATMO_USER={Environment.GetEnvironmentVariable("NETATMO_USER")}");
+                Console.WriteLine($"NETATMO_PASSWORD={Environment.GetEnvironmentVariable("NETATMO_PASSWORD")}");
+                Console.WriteLine($"NETATMO_DEVICE={Environment.GetEnvironmentVariable("NETATMO_DEVICE")}");
                 // start a MQTT backend e.g. with eclipse-mosquitto and "docker run -it -p 1883:1883 -p 9001:9001 eclipse-mosquitto"  oder toke/mosquitto
                 var bus = new MessageBus("RaspiBackend", "192.168.1.2", 9001);
                 var broker = new WeatherBroker(bus);
