@@ -24,10 +24,10 @@ RUN npm run build
 ##################
 
 # base image
-FROM nginx:1.13.9-alpine
+FROM tobi312/rpi-nginx
 
 # copy artifact build from the 'build environment'
-COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist /var/www/html
 
 # expose port 80
 EXPOSE 80
