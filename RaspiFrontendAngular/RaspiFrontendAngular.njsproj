@@ -40,6 +40,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".dockerignore">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="angular.json" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
@@ -102,6 +105,9 @@
     <TypeScriptCompile Include="src\test.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dockerfile">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="main.js">
       <SubType>Code</SubType>
     </Compile>
