@@ -11,7 +11,7 @@ export class WeatherComponent implements OnInit {
   public humidity: string;
   public temperature: string;
 
-  private modules: Array<WeatherModule>;
+  public modules: Array<WeatherModule>;
 
   constructor(private _messageQueue: MessageQueueComponent) {
     this.modules = new Array<WeatherModule>();

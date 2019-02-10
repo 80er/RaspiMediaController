@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  mediacontrollerbackendservices:
+    image: ${DOCKER_REGISTRY-}mediacontrollerbackendservices
+    build:
+      context: .
+      dockerfile: MediaControllerBackendServices/Dockerfile

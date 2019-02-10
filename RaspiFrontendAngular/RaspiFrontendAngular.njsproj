@@ -46,7 +46,17 @@
     <Content Include="README.md" />
     <Content Include="src\app\app.component.css" />
     <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\clock\clock\clock.component.css" />
+    <Content Include="src\app\clock\clock\clock.component.html" />
+    <Content Include="src\app\message-queue\message-queue\message-queue.component.css" />
+    <Content Include="src\app\message-queue\message-queue\message-queue.component.html" />
+    <Content Include="src\app\weather\weather\weather.component.css" />
+    <Content Include="src\app\weather\weather\weather.component.html" />
     <Content Include="src\assets\.gitkeep" />
+    <Content Include="src\assets\img\weather\co2.png" />
+    <Content Include="src\assets\img\weather\humidity.png" />
+    <Content Include="src\assets\img\weather\pressure.png" />
+    <Content Include="src\assets\img\weather\temperature.png" />
     <Content Include="src\browserslist" />
     <Content Include="src\favicon.ico" />
     <Content Include="src\index.html" />
@@ -60,7 +70,15 @@
   <ItemGroup>
     <Folder Include="src\" />
     <Folder Include="src\app\" />
+    <Folder Include="src\app\clock\" />
+    <Folder Include="src\app\clock\clock\" />
+    <Folder Include="src\app\message-queue\" />
+    <Folder Include="src\app\message-queue\message-queue\" />
+    <Folder Include="src\app\weather\" />
+    <Folder Include="src\app\weather\weather\" />
     <Folder Include="src\assets\" />
+    <Folder Include="src\assets\img\" />
+    <Folder Include="src\assets\img\weather\" />
     <Folder Include="src\environments\" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +86,15 @@
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\clock\clock.module.ts" />
+    <TypeScriptCompile Include="src\app\clock\clock\clock.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\clock\clock\clock.component.ts" />
+    <TypeScriptCompile Include="src\app\message-queue\message-queue.module.ts" />
+    <TypeScriptCompile Include="src\app\message-queue\message-queue\message-queue.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\message-queue\message-queue\message-queue.component.ts" />
+    <TypeScriptCompile Include="src\app\weather\weather.module.ts" />
+    <TypeScriptCompile Include="src\app\weather\weather\weather.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\weather\weather\weather.component.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />

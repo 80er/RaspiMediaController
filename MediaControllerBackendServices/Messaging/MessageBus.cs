@@ -81,7 +81,7 @@ namespace MediaControllerBackendServices.Messaging
             }
         }
 
-        private async void MqttClientOnConnected(object sender, MqttClientConnectedEventArgs e)
+        private void MqttClientOnConnected(object sender, MqttClientConnectedEventArgs e)
         {
             MqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic("#").WithExactlyOnceQoS().Build());
         }
