@@ -82,7 +82,7 @@ namespace MediaControllerBackendServices.Broker
 
             public Time()
             {
-                var now = DateTime.Now;
+                var now = DateTime.Now.ToLocalTime();
                 Hour = now.Hour;
                 Minute = now.Minute;
                 Day = now.Day;
