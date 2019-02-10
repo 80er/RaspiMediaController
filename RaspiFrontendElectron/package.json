@@ -1,0 +1,12 @@
+{
+  "name": "raspi-frontend-electron",
+  "version": "0.0.0",
+  "description": "RaspiFrontendElectron",
+  "main": "main.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "electron": "4.0.4"
+  }
+}
