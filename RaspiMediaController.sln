@@ -20,6 +20,8 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "RaspiFrontendAngular", "Ras
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DCFCE983-F50F-44B0-95B2-E61979813F93}"
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "RaspiFrontendElectron", "..\RaspiFrontendElectron\RaspiFrontendElectron.njsproj", "{8D97ABD7-FAA6-4E38-8617-5056EF66F0E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{DCFCE983-F50F-44B0-95B2-E61979813F93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCFCE983-F50F-44B0-95B2-E61979813F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCFCE983-F50F-44B0-95B2-E61979813F93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D97ABD7-FAA6-4E38-8617-5056EF66F0E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D97ABD7-FAA6-4E38-8617-5056EF66F0E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D97ABD7-FAA6-4E38-8617-5056EF66F0E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D97ABD7-FAA6-4E38-8617-5056EF66F0E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
