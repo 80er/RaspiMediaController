@@ -27,12 +27,9 @@ export class ClockComponent implements OnInit {
 
   private on_message = (...args: any[]) => {
     const message = args[0];
-    console.info('in clock' + message);
     if(message == "resend_all") return;
     const data = JSON.parse(message);
-    console.info('hour' + data.Hour);
     var date = new Date();
-    console.info('hour from typescript = ' + date.getHours());
     if (data.Hour == date.getHours()) {
       this.hour = data.Hour;
     } else {
