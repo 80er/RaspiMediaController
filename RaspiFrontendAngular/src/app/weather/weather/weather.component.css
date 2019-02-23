@@ -71,14 +71,11 @@
     vertical-align: middle;
   }
   .componenttable {
-    align-content: center;
     width: 800px;
   }
   .moduletable{
-    display: table;
     font-size: 22px;
     width: 200px;
-    align-content: center;
     padding: 0;
     margin: 0;
   }
