@@ -4,21 +4,25 @@
       <img class="subcontainer_left_leftimg" src="assets/img/weather/temperature.png" />
       <div class="subcontainer_left_lefttext">{{temperature}}°C</div>
     </div>
+    <div class="subcontainer_middle">
+      <img class="subcontainer_middle_img" src="assets/img/weather/humidity.png"/>
+      <div class="subcontainer_middle_text">{{humidity | number: '2.0'}}%</div>
+    </div>
     <div class="subcontainer_right">
-      <img class="subcontainer_right_rightimg" src="assets/img/weather/humidity.png"/>
-      <div class="subcontainer_right_righttext">{{humidity | number: '2.0'}}%</div>
+      <img class="subcontainer_right_rightimg" src="assets/img/weather/pressure.png"/>
+      <div class="subcontainer_right_righttext">{{pressure | number: '4.0'}}mbar</div>
     </div>
   </div>
+  <div style="height:20px" ></div>
     <div>
       <table class="componenttable">
         <tr>
         <td *ngFor="let module of modules">
           <table class="moduletable">
-            <tr>{{ module.name }}</tr>
+            <th>{{ module.name }}</th>
             <tr><img src="assets/img/weather/temperature.png" width="25px" height="25px"/>{{module.temperature}}°C
             <tr><img src="assets/img/weather/humidity.png" width="25px" height="25px"/>{{module.humidity | number: '2.0'}}%</tr>
             <tr><img src="assets/img/weather/co2.png" width="25px" height="25px"/>{{module.co2 | number: '2.0'}}ppm</tr>
-            <tr *ngIf="module.type == 0"><img src="assets/img/weather/pressure.png" width="25px" height="25px"/>{{module.pressure | number: '4.0'}}mbar</tr>
           </table>
         </td>
       </tr>

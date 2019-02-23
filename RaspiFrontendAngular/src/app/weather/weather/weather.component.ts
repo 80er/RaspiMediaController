@@ -10,6 +10,7 @@ export class WeatherComponent implements OnInit {
 
   public humidity: string;
   public temperature: string;
+  public pressure: string;
 
   public modules: Array<WeatherModule>;
 
@@ -17,6 +18,7 @@ export class WeatherComponent implements OnInit {
     this.modules = new Array<WeatherModule>();
     this.humidity = "52";
     this.temperature = "21.5";
+    this.pressure = "1042.3";
    }
 
   ngOnInit() {
@@ -40,8 +42,10 @@ export class WeatherComponent implements OnInit {
           element.humidity = data.Humidity;
           element.temperature = data.Temperature;
           element.co2 = data.CO2;
+          
           if(data.Type == 0) {
             element.pressure = data.Pressure;
+            this.pressure = element.pressure;
           }
           found = true;
         }
