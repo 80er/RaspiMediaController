@@ -15,6 +15,8 @@ export class WeatherComponent implements OnInit {
 
   constructor(private _messageQueue: MessageQueueComponent) {
     this.modules = new Array<WeatherModule>();
+    this.humidity = "52";
+    this.temperature = "21.5";
    }
 
   ngOnInit() {

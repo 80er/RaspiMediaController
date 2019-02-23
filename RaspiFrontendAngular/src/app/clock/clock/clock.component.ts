@@ -15,7 +15,8 @@ export class ClockComponent implements OnInit {
   public year: string;
   public month: string;
   constructor(private _messageQueue: MessageQueueComponent) { 
-    this.hour = this.minute = this.day = this.year = this.month = "1";
+    this.hour = this.minute = this.day  = this.month = "1";
+    this.year = "2019";
     this.dayname = "Montag";
   }
 
