@@ -39,6 +39,6 @@ export class ClockComponent implements OnInit {
     this.day = data.Day;
     this.dayname = data.Dayname;
     this.month = data.Month;
-    this.year = data.Year;
+    this.year = data.Year.toString().substring(2);
   }
 }
