@@ -10,7 +10,7 @@
     </div>
     <div class="subcontainer_right">
       <img class="subcontainer_right_rightimg" src="assets/img/weather/pressure.png"/>
-      <div class="subcontainer_right_righttext">{{pressure | number: '4.0'}}mbar</div>
+      <div class="subcontainer_right_righttext">{{pressure }}mbar</div>
     </div>
   </div>
   <div style="height:20px" ></div>
@@ -20,9 +20,9 @@
         <td *ngFor="let module of modules">
           <table class="moduletable">
             <th>{{ module.name }}</th>
-            <tr><img src="assets/img/weather/temperature.png" width="25px" height="25px"/>{{module.temperature}}°C
-            <tr><img src="assets/img/weather/humidity.png" width="25px" height="25px"/>{{module.humidity | number: '2.0'}}%</tr>
-            <tr><img src="assets/img/weather/co2.png" width="25px" height="25px"/>{{module.co2 | number: '2.0'}}ppm</tr>
+            <tr><img src="assets/img/weather/temperature.png" width="25px" height="25px"/> {{module.temperature}} °C
+            <tr><img src="assets/img/weather/humidity.png" width="25px" height="25px" /> {{module.humidity | number: '2.0'}} %</tr>
+            <tr><img src="assets/img/weather/co2.png" width="25px" height="25px"/> {{module.co2}} ppm</tr>
           </table>
         </td>
       </tr>
