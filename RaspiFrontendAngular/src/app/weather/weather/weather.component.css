@@ -4,52 +4,51 @@
     color: gray;
     overflow: hidden;
     opacity: 0.8;
-    width: 800px;
+    width: 100%;
     height: 100%;
     position: relative;
   }
   .externalcontainer {
     align-self: center;
     width: 100%;
-    height: 100px;
+    height: 50px;
     box-sizing: border-box;
     vertical-align: middle;
   }
-  .subcontainer {
+  .subcontainer_left {
     width: 48%;
-  }
-  .leftimg {
+    height: 100%;
     float: left;
+    vertical-align: middle;
+  }
+  .subcontainer_right {
+    width: 48%;
+    height: 100%;
+    float: right;
+    vertical-align: middle;
+  }
+  .subcontainer_left_leftimg {
     position: relative;
     height: 45px;
     width: 45px;
-    left: 150px;
-    padding: 5px;
+    left: 110px;
     vertical-align: middle;
   }  
-  .lefttext {
-    padding: 10px;
-    float: left;
-    left: 150px;
+  .subcontainer_left_lefttext {
+    float: right;
     position: relative;
-    height: 50px;
     vertical-align: middle;
   }
-  .rightimg {
-    position: absolute;
-    text-align: center;
+  .subcontainer_right_rightimg {
     width: 45px;
     height: 45px;
-    left: 340px;
+    float: left;
     vertical-align: middle;
   }
-  .righttext {
-    display: table-cell;
-    padding: 10px;
+  .subcontainer_right_righttext {
     float: left;
-    left: 230px;
+    left: 10px;
     position: relative;
-    height: 50px;
     vertical-align: middle;
   }
   .componenttable {
