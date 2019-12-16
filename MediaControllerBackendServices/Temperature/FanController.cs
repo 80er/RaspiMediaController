@@ -1,34 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Mvc;
-using Unosquare.RaspberryIO;
-using Unosquare.RaspberryIO.Gpio;
+﻿using Unosquare.RaspberryIO;
+using Unosquare.RaspberryIO.Abstractions;
 
 namespace MediaControllerBackendServices
 {
     public class FanController
     {
-        private GpioPin OutputPin;
+        private readonly IGpioPin _outputPin;
 
         public FanController()
         {
-            OutputPin = Pi.Gpio[0];
-            OutputPin.PinMode = GpioPinDriveMode.Output;
+            _outputPin = Pi.Gpio[0];
+            _outputPin.PinMode = GpioPinDriveMode.Output;
         }
         public void On()
         {
-            if (!OutputPin.Read())
+            if (!_outputPin.Read())
             {
-                OutputPin.Write(true);
+                _outputPin.Write(true);
             }
         }
 
         public void Off()
         {
-            if (OutputPin.Read())
+            if (_outputPin.Read())
             {
-                OutputPin.Write(false);
+                _outputPin.Write(false);
             }
         }
     }

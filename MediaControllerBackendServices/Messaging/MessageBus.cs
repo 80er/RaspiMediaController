@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using MQTTnet;
 using MQTTnet.Client;
+using MQTTnet.Client.Connecting;
+using MQTTnet.Client.Disconnecting;
+using MQTTnet.Client.Options;
+using MQTTnet.Client.Receiving;
+using MQTTnet.Extensions.ManagedClient;
 using MQTTnet.Protocol;
 
 namespace MediaControllerBackendServices.Messaging
 {
     internal class MessageBus : IMessageBus
     {
-        private IMqttClient MqttClient { get; set; }
+        private IManagedMqttClient MqttClient { get; set; }
         private static string ClientId { get; set; }
         private static string Uri { get; set; }
         private static int Port { get; set; }
@@ -29,7 +35,9 @@ namespace MediaControllerBackendServices.Messaging
             var options = CreateOptions();
             try
             {
-                await MqttClient.ConnectAsync(options);
+                await MqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic("#").Build());
+                await MqttClient.StartAsync(options);
+                MqttClient.UseApplicationMessageReceivedHandler(MqttClientOnApplicationMessageReceived);
             }
             catch (Exception e)
             {
@@ -38,36 +46,31 @@ namespace MediaControllerBackendServices.Messaging
             
         }
 
-        private IMqttClient GetOrCreateClient()
+        private IManagedMqttClient GetOrCreateClient()
         {
             if (MqttClient != null)
             {
                 return MqttClient;
             }
-            var mqttFactory = new MqttFactory();
-            var mqttClient = mqttFactory.CreateMqttClient();
-            mqttClient.Connected += MqttClientOnConnected;
-            mqttClient.ApplicationMessageReceived += MqttClientOnApplicationMessageReceived;
-            mqttClient.Disconnected += MqttClientOnDisconnected;
-            return mqttClient;
+            var mqttClient = new MqttFactory().CreateManagedMqttClient();
+            MqttClient = mqttClient;
+            return MqttClient;
         }
 
-        private void MqttClientOnDisconnected(object sender, MqttClientDisconnectedEventArgs e)
+        private static ManagedMqttClientOptions CreateOptions()
         {
-            var client = GetOrCreateClient();
-            while (!client.IsConnected)
-            {
-                Thread.Sleep(500);
-                Connect();
-            }
+            var options = new ManagedMqttClientOptionsBuilder()
+                .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
+                .WithClientOptions(new MqttClientOptionsBuilder()
+                .WithClientId(ClientId)
+                .WithWebSocketServer($"{Uri}:{Port}")
+                .WithCleanSession(true)
+                .WithKeepAlivePeriod(TimeSpan.FromSeconds(10))
+                .Build()).Build();
+            return options;
         }
 
-        private static IMqttClientOptions CreateOptions()
-        {
-            return new MqttClientOptionsBuilder().WithClientId(ClientId).WithWebSocketServer($"{Uri}:{Port}").WithCleanSession(true).WithKeepAlivePeriod(TimeSpan.FromSeconds(10)).Build();
-        }
-
-        private void MqttClientOnApplicationMessageReceived(object sender, MqttApplicationMessageReceivedEventArgs e)
+        private void MqttClientOnApplicationMessageReceived(MqttApplicationMessageReceivedEventArgs e)
         {
             var messageReceived = MessageReceived;
             if (messageReceived != null)
@@ -81,10 +84,6 @@ namespace MediaControllerBackendServices.Messaging
             }
         }
 
-        private void MqttClientOnConnected(object sender, MqttClientConnectedEventArgs e)
-        {
-            MqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic("#").WithExactlyOnceQoS().Build());
-        }
 
         public event EventHandler<MessageReceivedArgs> MessageReceived;
 

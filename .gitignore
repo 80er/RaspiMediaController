@@ -26,3 +26,6 @@
 /MediaControllerBackendServices/bin/Debug/netcoreapp2.2
 /RaspiFrontendElectron/node_modules
 sh.exe.stackdump
+/MediaControllerBackendServices/bin/Debug/netcoreapp3.1
+/RaspiFrontendElectron/bin
+/RaspiFrontendElectron/obj/Debug
