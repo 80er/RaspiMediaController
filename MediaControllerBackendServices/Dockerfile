@@ -1,7 +1,7 @@
-FROM microsoft/dotnet:2.2-runtime AS base
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1 as base
 WORKDIR /app
 
-FROM microsoft/dotnet:2.2-sdk AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
 COPY MediaControllerBackendServices.csproj MediaControllerBackendServices/
 RUN dotnet restore MediaControllerBackendServices/MediaControllerBackendServices.csproj
