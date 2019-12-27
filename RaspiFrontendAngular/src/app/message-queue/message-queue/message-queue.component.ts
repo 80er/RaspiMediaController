@@ -13,7 +13,7 @@ import { Subject } from 'rxjs/Rx';
   styleUrls: ['./message-queue.component.css']
 })
 export class MessageQueueComponent implements OnInit {
-  
+
   public timeMessages: Subject<string>;
   public weatherMessage: Subject<string>;
 
@@ -26,7 +26,7 @@ export class MessageQueueComponent implements OnInit {
       'keepalive': 5000,
       'reconnectPeriod': 10000,
       'clientId': 'RaspiWeatherStation',
-      'host': '192.168.1.2',
+      'host': 'localhost',
       'port': 9001
     };
 
@@ -35,28 +35,33 @@ export class MessageQueueComponent implements OnInit {
     this.client.subscribe('time_data');
     this.client.subscribe('weather_data');
     this.client.addListener('message', this.on_message);
+    this.client.on('connect', this.on_connect);
    }
 
   ngOnInit() {
   }
 
-  public send_weather_request = (...args: any[]) => {
-    this.client.publish('weather_data', "resend_all");
+  private send_weather_request = (...args: any[]) => {
+    this.client.publish('weather_data', 'resend_all');
   }
 
-  public send_time_request = (...args: any[]) => {
-    this.client.publish('time_data', "resend_all");
+  private send_time_request = (...args: any[]) => {
+    this.client.publish('time_data', 'resend_all');
+  }
+
+  private on_connect = (...args: any[]) => {
+    this.send_weather_request();
+    this.send_time_request();
   }
 
   private on_message = (...args: any[]) => {
-
     const topic = args[0],
       message = args[1],
       packet: mqtt.Packet = args[2];
-    if (topic == 'time_data') {
+    if (topic === 'time_data') {
       this.timeMessages.next(message.toString());
     }
-    else if(topic == "weather_data") {
+    else if(topic === 'weather_data') {
       this.weatherMessage.next(message.toString());
     } else {
       console.warn('Message from unknown topic received: ' + topic);

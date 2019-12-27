@@ -6,6 +6,7 @@ import { MessageQueueComponent } from 'src/app/message-queue/message-queue/messa
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.css']
 })
+
 export class WeatherComponent implements OnInit {
 
   public humidity: string;
@@ -16,34 +17,32 @@ export class WeatherComponent implements OnInit {
 
   constructor(private _messageQueue: MessageQueueComponent) {
     this.modules = new Array<WeatherModule>();
-    this.humidity = "52";
-    this.temperature = "21.5";
-    this.pressure = "1042.3";
+    this.humidity = '52';
+    this.temperature = '21.5';
+    this.pressure = '1042.3';
    }
 
   ngOnInit() {
     this._messageQueue.weatherMessage.subscribe((data) => this.on_message(data));
-    this._messageQueue.send_weather_request();
   }
 
   private on_message = (...args: any[]) => {
     const message = args[0];
-    if(message == "resend_all") return;
+    if(message === 'resend_all') {
+       return;
+    }
     const data = JSON.parse(message);
-    if(data.Type == 1)
-    {
+    if (data.Type === 1) {
       this.humidity = data.Humidity;
       this.temperature = data.Temperature;
-    } else if(data.Type == 2 || data.Type == 0) {
-      var found = false;
+    } else if (data.Type === 2 || data.Type === 0) {
+      let found = false;
       this.modules.forEach(element => {
-        if(element.name == data.Name)
-        {
+        if (element.name === data.Name) {
           element.humidity = data.Humidity;
           element.temperature = data.Temperature;
           element.co2 = data.CO2;
-          
-          if(data.Type == 0) {
+          if (data.Type === 0) {
             element.pressure = data.Pressure;
             this.pressure = element.pressure;
           }
@@ -67,14 +66,13 @@ class WeatherModule {
   public type: string;
   public pressure: string;
 
-  constructor(data)
-  {
+  constructor(data) {
     this.name = data.Name;
     this.humidity = data.Humidity;
     this.temperature = data.Temperature;
     this.co2 = data.CO2;
     this.type = data.Type;
-    if(data.Type == 0) {
+    if (data.Type === 0) {
       this.pressure = data.Pressure;
     }
   }
