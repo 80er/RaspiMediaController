@@ -29,3 +29,4 @@ sh.exe.stackdump
 /MediaControllerBackendServices/bin/Debug/netcoreapp3.1
 /RaspiFrontendElectron/bin
 /RaspiFrontendElectron/obj/Debug
+/RaspiFrontendAngular/obj/Docker

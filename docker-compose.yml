@@ -4,5 +4,14 @@ services:
   mediacontrollerbackendservices:
     image: ${DOCKER_REGISTRY-}mediacontrollerbackendservices
     build:
-      context: .
-      dockerfile: MediaControllerBackendServices/Dockerfile
+      context: ./MediaControllerBackendServices
+      dockerfile: Dockerfile
+  raspifrontendangular:
+    image: ${DOCKER_REGISTRY-}raspifrontendangular
+    build:
+      context: ./RaspiFrontendAngular
+      dockerfile: Dockerfile
+    depends_on: 
+     - mediacontrollerbackendservices
+    ports: 
+     - 80:80
