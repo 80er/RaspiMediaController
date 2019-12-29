@@ -13,8 +13,6 @@ services:
      - NETATMO_PASSWORD
      - NETATMO_DEVICE
      - MQTT_SERVER
-    ports:
-     - 9001:9001
   raspifrontendangular:
     image: ${DOCKER_REGISTRY-}raspifrontendangular
     build:
