@@ -13,9 +13,15 @@ namespace MediaControllerBackendServices.WeatherStation
         public ExternalModule(Module module)
         {
             Module = module;
-            var data = Newtonsoft.Json.JsonConvert.DeserializeObject<DashboardData>(Module.DashboardData.ToString());
-            Temperature = data.Temperature;
-            Humidity = data.Humidity;
+            Console.WriteLine($"--->Module: {Module}");
+            Console.WriteLine($"---> {Module.DashboardData}");
+            if (Module.DashboardData != null)
+            {
+                var data =
+                    Newtonsoft.Json.JsonConvert.DeserializeObject<DashboardData>(Module.DashboardData.ToString());
+                Temperature = data.Temperature;
+                Humidity = data.Humidity;
+            }
         }
 
         public double Temperature { get; }
