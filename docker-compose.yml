@@ -23,9 +23,28 @@ services:
     ports: 
      - 80:80
   fluentd:
-    build: ./fluentd
+    image:  ${DOCKER_REGISTRY-}fluentd
+    build: 
+      context: ./fluentd
+      dockerfile: Dockerfile
     volumes:
-        - ./fluentd/conf:/fluentd/etc
+      - ./fluentd/conf:/fluentd/etc
+    links:
+      - "elasticsearch"
     ports:
       - "9880:9880"
       - "9880:9880/udp"
+  elasticsearch:
+    image: elasticsearch:7.4.2
+    environment:
+      - discovery.type=single-node
+    expose:
+      - 9200
+    ports:
+      - "9200:9200"
+  kibana:
+    image: kibana:7.4.2
+    links:
+      - "elasticsearch"
+    ports:
+      - "5601:5601"
