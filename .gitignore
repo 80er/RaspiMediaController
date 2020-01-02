@@ -30,3 +30,4 @@ sh.exe.stackdump
 /RaspiFrontendElectron/bin
 /RaspiFrontendElectron/obj/Debug
 /RaspiFrontendAngular/obj/Docker
+fluentd/obj/Docker/CanonicalServiceNames.cache
