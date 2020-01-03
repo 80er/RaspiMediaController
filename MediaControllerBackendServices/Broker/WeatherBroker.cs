@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
+using log4net;
 using MediaControllerBackendServices.Messaging;
 using MediaControllerBackendServices.WeatherStation;
 using Newtonsoft.Json;
@@ -12,13 +13,15 @@ namespace MediaControllerBackendServices.Broker
     {
         private IMainStation MainStation { get; }
         private IMessageBus MessageBus { get; }
+        private ILog Log { get; set; }
         private Timer Timer { get; }
         private static string myTopic = "weather_data";
         private bool myResendAll;
         private static Dictionary<string, object> myModuleCache = new Dictionary<string, object>();
 
-        public WeatherBroker(IMessageBus messageBus)
+        public WeatherBroker(IMessageBus messageBus, ILog log)
         {
+            Log = log;
             MessageBus = messageBus;
             Timer = new Timer(30000);
             Timer.Elapsed += TimerOnElapsed;

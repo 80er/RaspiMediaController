@@ -9,13 +9,13 @@ namespace MediaControllerBackendServices.WeatherStation
 {
     class ExternalModule : ITemperatureModule, IEquatable<ITemperatureModule>
     {
-        static ILog _log = LogManager.GetLogger(typeof(ExternalModule));
+        private static ILog Log { get; set; }
         private Module Module { get; }
 
-        public ExternalModule(Module module)
+        public ExternalModule(Module module, ILog log)
         {
             Module = module;
-            _log.Info($"{Module.DashboardData}");
+            log.Info($"{Module.DashboardData}");
             if (Module.DashboardData != null)
             {
                 var data =
@@ -25,8 +25,10 @@ namespace MediaControllerBackendServices.WeatherStation
             }
             else
             {
-                _log.Warn("Module.DashboardData was null!");
+                log.Warn("Module.DashboardData was null!");
             }
+
+            Log = log;
         }
 
         public double Temperature { get; }

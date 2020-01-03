@@ -26,9 +26,9 @@ namespace MediaControllerBackendServices
                 log.Info($"NETATMO_DEVICE={Environment.GetEnvironmentVariable("NETATMO_DEVICE")}");
                 log.Info($"MQTT_SERVER={Environment.GetEnvironmentVariable("MQTT_SERVER")}");
                 // start a MQTT backend e.g. with eclipse-mosquitto and "docker run -it -p 1883:1883 -p 9001:9001 eclipse-mosquitto"  oder toke/mosquitto
-                var bus = new MessageBus("RaspiBackend", Environment.GetEnvironmentVariable("MQTT_SERVER"), 9001);
-                var broker = new WeatherBroker(bus);
-                var timer = new TimeBroker(bus);
+                var bus = new MessageBus("RaspiBackend", Environment.GetEnvironmentVariable("MQTT_SERVER"), 9001, LogManager.GetLogger(typeof(MessageBus)));
+                var broker = new WeatherBroker(bus, LogManager.GetLogger(typeof(WeatherBroker)));
+                var timer = new TimeBroker(bus, LogManager.GetLogger(typeof(TimeBroker)));
                 while (true)
                 {
                     Thread.Sleep(1000);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using log4net;
 using Netatmo.Models.Client.Weather.StationsData;
 
 namespace MediaControllerBackendServices.WeatherStation
@@ -8,9 +9,10 @@ namespace MediaControllerBackendServices.WeatherStation
     class WindModule : IWindModule, IEquatable<IWindModule>
     {
         private Module Module { get; }
-
-        public WindModule(Module module)
+        private ILog Log { get; set; }
+        public WindModule(Module module, ILog log)
         {
+            Log = log;
             Module = module;
             var data = Newtonsoft.Json.JsonConvert.DeserializeObject<DashboardData>(Module.DashboardData.ToString());
             WindAngle = data.WindAngle;
