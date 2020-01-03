@@ -15,6 +15,7 @@ services:
      - MQTT_SERVER
     depends_on:
       - "fluentd"
+    restart: always
   raspifrontendangular:
     image: ${DOCKER_REGISTRY-}raspifrontendangular
     build:
@@ -23,6 +24,7 @@ services:
     depends_on: 
      - "mediacontrollerbackendservices"
      - "fluentd"
+    restart: always
     ports: 
      - 80:80
   fluentd:
@@ -32,6 +34,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./fluentd/conf:/fluentd/etc
+    restart: always
     ports:
       - "9880:9880"
       - "9880:9880/udp"
