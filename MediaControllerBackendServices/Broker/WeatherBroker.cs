@@ -45,15 +45,24 @@ namespace MediaControllerBackendServices.Broker
         {
             lock (myLockObject)
             {
-                // TODO: have to inject somehow main station....
-                var station = new MainStation();
-                SendMesage(MessageBus, (IAirModule)station, myResendAll);
-                foreach (var module in station.GetModules())
+                try
                 {
-                    SendMesage(MessageBus, module, myResendAll);
-                }
+                    // TODO: have to inject somehow main station....
+                    var station = new MainStation();
+                    SendMesage(MessageBus, (IAirModule)station, myResendAll);
+                    foreach (var module in station.GetModules())
+                    {
+                        SendMesage(MessageBus, module, myResendAll);
+                    }
 
-                myResendAll = false;
+                    myResendAll = false;
+                }
+                catch (Exception exception)
+                {
+                    Log.Error("Something went wrong when accessing weather data!");
+                    Log.Error(exception);
+                }
+                
             }
         }
 
