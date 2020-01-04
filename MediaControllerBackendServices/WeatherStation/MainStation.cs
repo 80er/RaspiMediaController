@@ -49,7 +49,7 @@ namespace MediaControllerBackendServices.WeatherStation
             string deviceId = Environment.GetEnvironmentVariable("NETATMO_DEVICE");
             var clock = NodaTime.SystemClock.Instance;
             var client = new Netatmo.Client(clock, "https://api.netatmo.com/", clientId, clientSecret);
-            Device station;
+            Device station = null;
             try
             { 
                 _log.Info($"Will generate token with user: {user} and password {password}");
@@ -64,10 +64,6 @@ namespace MediaControllerBackendServices.WeatherStation
             catch (Exception e)
             {
                 _log.Warn($"Exception in accessing weather data: {e.Message}");
-                client.CredentialManager.RefreshToken().Wait();
-                var token = client.CredentialManager.CredentialToken;
-                _log.Warn($"Aquired token: {token.AccessToken}");
-                station = client.Weather.GetStationsData(deviceId).Result.Body.Devices.First();
             }
             
             return station;
