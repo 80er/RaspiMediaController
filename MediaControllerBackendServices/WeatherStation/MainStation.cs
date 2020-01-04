@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using log4net;
 using Netatmo;
+using Netatmo.Models.Client.Air;
 using Netatmo.Models.Client.Weather.StationsData;
 
 namespace MediaControllerBackendServices.WeatherStation
@@ -18,11 +19,32 @@ namespace MediaControllerBackendServices.WeatherStation
             MainDevice = Init();
         }
 
-        public string Name => MainDevice.ModuleName;
+        public string Name {
+            get
+            {
+                if(MainDevice != null)
+                    return MainDevice.ModuleName;
+                return "Not Connected";
+            }
+        }
 
-        public double Noise => MainDevice.DashboardData.Noise;
+        public double Noise 
+        {
+            get
+            {
+                if(MainDevice != null) return MainDevice.DashboardData.Noise;
+                return -1.0;
+            }
+        }
 
-        public double Pressure => MainDevice.DashboardData.Pressure;
+        public double Pressure
+        {
+            get
+            {
+                if (MainDevice != null) return MainDevice.DashboardData.Pressure;
+                return -1.0;
+            }
+        }
 
         public IEnumerable<IModule> GetModules()
         {
@@ -32,11 +54,32 @@ namespace MediaControllerBackendServices.WeatherStation
             }
         }
 
-        public int CO2 => MainDevice.DashboardData.CO2;
+        public int CO2
+        {
+            get
+            {
+                if (MainDevice != null) return MainDevice.DashboardData.CO2;
+                return -1;
+            }
+        }
 
-        public double Temperature => MainDevice.DashboardData.Temperature;
+        public double Temperature
+        {
+            get
+            {
+                if (MainDevice != null) return MainDevice.DashboardData.Temperature;
+                return -1.0;
+            }
+        }
 
-        public int Humidity => MainDevice.DashboardData.HumidityPercent;
+        public int Humidity
+        {
+            get
+            {
+                if (MainDevice != null) return MainDevice.DashboardData.HumidityPercent;
+                return -1;
+            }
+        }
 
         public ModuleType Type => ModuleType.Main;
 
