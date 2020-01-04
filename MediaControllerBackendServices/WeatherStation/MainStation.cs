@@ -85,11 +85,11 @@ namespace MediaControllerBackendServices.WeatherStation
 
         private static Device Init()
         {
-            string clientSecret = Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET");
-            string clientId = Environment.GetEnvironmentVariable("NETATMO_CLIENT");
-            string user = Environment.GetEnvironmentVariable("NETATMO_USER");
-            string password = Environment.GetEnvironmentVariable("NETATMO_PASSWORD");
-            string deviceId = Environment.GetEnvironmentVariable("NETATMO_DEVICE");
+            string clientSecret = Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET").Trim();
+            string clientId = Environment.GetEnvironmentVariable("NETATMO_CLIENT").Trim();
+            string user = Environment.GetEnvironmentVariable("NETATMO_USER").Trim();
+            string password = Environment.GetEnvironmentVariable("NETATMO_PASSWORD").Trim();
+            string deviceId = Environment.GetEnvironmentVariable("NETATMO_DEVICE").Trim();
             var clock = NodaTime.SystemClock.Instance;
             var client = new Netatmo.Client(clock, "https://api.netatmo.com/", clientId, clientSecret);
             Device station = null;
