@@ -106,7 +106,7 @@ namespace MediaControllerBackendServices.WeatherStation
             }
             catch (Exception e)
             {
-                _log.Warn($"Exception in accessing weather data: {e.Message}");
+                _log.Error($"Exception in accessing weather data: {e.Message}", e);
             }
             
             return station;
