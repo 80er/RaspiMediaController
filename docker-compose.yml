@@ -15,6 +15,7 @@ services:
      - MQTT_SERVER
     depends_on:
       - "fluentd"
+      - "mosquitto"
     restart: always
   raspifrontendangular:
     image: ${DOCKER_REGISTRY-}raspifrontendangular
@@ -24,6 +25,7 @@ services:
     depends_on: 
      - "mediacontrollerbackendservices"
      - "fluentd"
+     - "mosquitto"
     restart: always
     ports: 
      - 80:80
@@ -40,3 +42,9 @@ services:
       - "9880:9880/udp"
       - "9881:9881"
       - "9881:9881/udp"
+  mosquitto:
+    image: eclipse-mosquitto
+    volumes:
+      - ./mosquitto-mqtt/conf:/mosquitto/config
+    ports:
+      - 9001:9001
