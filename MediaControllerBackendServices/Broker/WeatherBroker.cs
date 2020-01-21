@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
-using log4net;
 using MediaControllerBackendServices.Messaging;
 using MediaControllerBackendServices.WeatherStation;
 using Newtonsoft.Json;
@@ -13,15 +12,13 @@ namespace MediaControllerBackendServices.Broker
     {
         private IMainStation MainStation { get; }
         private IMessageBus MessageBus { get; }
-        private ILog Log { get; set; }
         private Timer Timer { get; }
         private static string myTopic = "weather_data";
         private bool myResendAll;
         private static Dictionary<string, object> myModuleCache = new Dictionary<string, object>();
 
-        public WeatherBroker(IMessageBus messageBus, ILog log)
+        public WeatherBroker(IMessageBus messageBus)
         {
-            Log = log;
             MessageBus = messageBus;
             Timer = new Timer(30000);
             Timer.Elapsed += TimerOnElapsed;
@@ -59,8 +56,8 @@ namespace MediaControllerBackendServices.Broker
                 }
                 catch (Exception exception)
                 {
-                    Log.Error("Something went wrong when accessing weather data!");
-                    Log.Error(exception);
+                   Console.WriteLine("Something went wrong when accessing weather data!");
+                   Console.WriteLine(exception);
                 }
                 
             }

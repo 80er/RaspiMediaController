@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
 using Netatmo.Models.Client.Energy;
 using Netatmo.Models.Client.Weather.StationsData;
 
@@ -9,13 +8,12 @@ namespace MediaControllerBackendServices.WeatherStation
 {
     class ExternalModule : ITemperatureModule, IEquatable<ITemperatureModule>
     {
-        private static ILog Log { get; set; }
         private Module Module { get; }
 
-        public ExternalModule(Module module, ILog log)
+        public ExternalModule(Module module)
         {
             Module = module;
-            log.Info($"{Module.DashboardData}");
+            Console.WriteLine($"{Module.DashboardData}");
             if (Module.DashboardData != null)
             {
                 var data =
@@ -25,10 +23,8 @@ namespace MediaControllerBackendServices.WeatherStation
             }
             else
             {
-                log.Warn("Module.DashboardData was null!");
+                Console.WriteLine("Module.DashboardData was null!");
             }
-
-            Log = log;
         }
 
         public double Temperature { get; }

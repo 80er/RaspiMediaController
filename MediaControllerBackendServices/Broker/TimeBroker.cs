@@ -2,7 +2,6 @@
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Timers;
-using log4net;
 using Timer = System.Timers.Timer;
 using MediaControllerBackendServices.Messaging;
 using Newtonsoft.Json;
@@ -12,13 +11,11 @@ namespace MediaControllerBackendServices.Broker
     internal class TimeBroker
     {
         private IMessageBus MessageBus { get; }
-        private ILog Log { get; set; }
         private Timer Timer { get; set; }
         private static string myTopic = "time_data";
         private static int myLastMinute;
-        public TimeBroker(IMessageBus messageBus, ILog log)
+        public TimeBroker(IMessageBus messageBus)
         {
-            Log = log;
             MessageBus = messageBus;
             MessageBus.MessageReceived += MessageBusOnMessageReceived;
             myLastMinute = -1;

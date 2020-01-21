@@ -2,8 +2,6 @@
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using log4net;
-using log4net.Config;
 using MediaControllerBackendServices.Broker;
 using MediaControllerBackendServices.Messaging;
 
@@ -13,23 +11,20 @@ namespace MediaControllerBackendServices
     {
         static void Main(string[] args)
         {
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
-            var log = LogManager.GetLogger(typeof(Program));
             try
             {
-                log.Info("Starting up");
-                log.Info($"NETATMO_CLIENT_SECRET={Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET")}");
-                log.Info($"NETATMO_CLIENT={Environment.GetEnvironmentVariable("NETATMO_CLIENT")}");
-                log.Info($"NETATMO_USER={Environment.GetEnvironmentVariable("NETATMO_USER")}");
-                log.Info($"NETATMO_PASSWORD={Environment.GetEnvironmentVariable("NETATMO_PASSWORD")}");
-                log.Info($"NETATMO_DEVICE={Environment.GetEnvironmentVariable("NETATMO_DEVICE")}");
-                log.Info($"MQTT_SERVER={Environment.GetEnvironmentVariable("MQTT_SERVER")}");
+               Console.WriteLine("Starting up");
+               Console.WriteLine($"NETATMO_CLIENT_SECRET={Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET")}");
+               Console.WriteLine($"NETATMO_CLIENT={Environment.GetEnvironmentVariable("NETATMO_CLIENT")}");
+               Console.WriteLine($"NETATMO_USER={Environment.GetEnvironmentVariable("NETATMO_USER")}");
+               Console.WriteLine($"NETATMO_PASSWORD={Environment.GetEnvironmentVariable("NETATMO_PASSWORD")}");
+               Console.WriteLine($"NETATMO_DEVICE={Environment.GetEnvironmentVariable("NETATMO_DEVICE")}");
+               Console.WriteLine($"MQTT_SERVER={Environment.GetEnvironmentVariable("MQTT_SERVER")}");
                 var mqtt = Environment.GetEnvironmentVariable("MQTT_SERVER") ?? "mosquitto";
-                log.Info($"Will use {mqtt} as mqtt broker");
-                var bus = new MessageBus("RaspiBackend", mqtt, 9001, LogManager.GetLogger(typeof(MessageBus)));
-                var broker = new WeatherBroker(bus, LogManager.GetLogger(typeof(WeatherBroker)));
-                var timer = new TimeBroker(bus, LogManager.GetLogger(typeof(TimeBroker)));
+               Console.WriteLine($"Will use {mqtt} as mqtt broker");
+                var bus = new MessageBus("RaspiBackend", mqtt, 9001);
+                var broker = new WeatherBroker(bus);
+                var timer = new TimeBroker(bus);
                 while (true)
                 {
                     Thread.Sleep(1000);
@@ -37,7 +32,7 @@ namespace MediaControllerBackendServices
             }
             catch (Exception e)
             {
-                log.Error(e);
+               Console.WriteLine(e);
                 Environment.Exit(1);
             }
             

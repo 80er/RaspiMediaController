@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
 using Netatmo.Models.Client.Weather.StationsData;
 
 namespace MediaControllerBackendServices.WeatherStation
@@ -9,10 +8,8 @@ namespace MediaControllerBackendServices.WeatherStation
     class InternalModule : IAirModule, IEquatable<IAirModule>
     {
         private Module Module { get; }
-        private ILog Log { get; set; }
-        public InternalModule(Module module, ILog log)
+        public InternalModule(Module module)
         {
-            Log = log;
             Module = module;
             var data = Newtonsoft.Json.JsonConvert.DeserializeObject<DashboardData>(Module.DashboardData.ToString());
             Temperature = data.Temperature;

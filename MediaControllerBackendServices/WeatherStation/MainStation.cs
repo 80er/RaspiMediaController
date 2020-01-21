@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using log4net;
 using Netatmo;
 using Netatmo.Models.Client.Air;
 using Netatmo.Models.Client.Weather.StationsData;
@@ -11,7 +10,6 @@ namespace MediaControllerBackendServices.WeatherStation
 {
     class MainStation : IMainStation, IEquatable<IMainStation>
     {
-        static ILog _log = LogManager.GetLogger(typeof(MainStation));
         private Device MainDevice { get; }
 
         public MainStation()
@@ -94,19 +92,19 @@ namespace MediaControllerBackendServices.WeatherStation
             var client = new Netatmo.Client(clock, "https://api.netatmo.com/", clientId, clientSecret);
             Device station = null;
             try
-            { 
-                _log.Info($"Will generate token with user: {user} and password {password}");
+            {
+                Console.WriteLine($"Will generate token with user: {user} and password {password}");
                 client.GenerateToken(user, password, new Scope[] { Scope.StationRead }).Wait();
 
                 var token = client.CredentialManager.CredentialToken;
-                _log.Info($"Aquired token: {token.AccessToken}");
+                Console.WriteLine($"Aquired token: {token.AccessToken}");
                 
                 client.CredentialManager.RefreshToken().Wait();
                 station = client.Weather.GetStationsData(deviceId).Result.Body.Devices.First();
             }
             catch (Exception e)
             {
-                _log.Error($"Exception in accessing weather data: {e.Message}", e);
+                Console.WriteLine($"Exception in accessing weather data: {e.Message}.{Environment.NewLine}{e}");
             }
             
             return station;

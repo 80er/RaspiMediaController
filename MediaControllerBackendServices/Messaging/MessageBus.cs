@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using log4net;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Connecting;
@@ -22,51 +21,49 @@ namespace MediaControllerBackendServices.Messaging
         private static string ClientId { get; set; }
         private static string Uri { get; set; }
         private static int Port { get; set; }
-        private ILog Log { get; set; }
-        public MessageBus(string clientId, string uri, int port, ILog log)
+        public MessageBus(string clientId, string uri, int port)
         {
            ClientId = clientId;
            Uri = uri;
            Port = port;
-           Log = log;
            Connect();
         }
 
         private async void Connect()
         {
-            Log.Info("Connecting");
+           Console.WriteLine("Connecting");
             MqttClient = GetOrCreateClient();
             var options = CreateOptions();
             try
             {
                 await MqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic("#").Build());
-                Log.Info("Subscribed");
+               Console.WriteLine("Subscribed");
                 await MqttClient.StartAsync(options);
-                Log.Info("Started");
+               Console.WriteLine("Started");
                 MqttClient.UseApplicationMessageReceivedHandler(MqttClientOnApplicationMessageReceived);
                 MqttClient.UseDisconnectedHandler(MqttDisconnected);
                 MqttClient.UseConnectedHandler(MqttConnected);
             }
             catch (Exception e)
             {
-                Log.Error(e);
+                Console.WriteLine(e);
             }
             
         }
 
         private Task MqttConnected(MqttClientConnectedEventArgs arg)
         {
-            return Task.Run(() => Log.Info("Mqtt connected"));
+            return Task.Run(() =>Console.WriteLine("Mqtt connected"));
         }
 
         private Task MqttDisconnected(MqttClientDisconnectedEventArgs arg)
         {
             return Task.Run(() =>
             {
-                Log.Warn("Bus not connected");
+                Console.WriteLine("Bus not connected");
                 if (arg.Exception != null)
                 {
-                    Log.Warn(arg.Exception);
+                    Console.WriteLine(arg.Exception);
                 }
             });
         }
@@ -75,10 +72,10 @@ namespace MediaControllerBackendServices.Messaging
         {
             if (MqttClient != null)
             {
-                Log.Info("Client existed");
+               Console.WriteLine("Client existed");
                 return MqttClient;
             }
-            Log.Info("Creating new client");
+           Console.WriteLine("Creating new client");
             var mqttClient = new MqttFactory().CreateManagedMqttClient();
             MqttClient = mqttClient;
             return MqttClient;
@@ -99,14 +96,14 @@ namespace MediaControllerBackendServices.Messaging
 
         private void MqttClientOnApplicationMessageReceived(MqttApplicationMessageReceivedEventArgs e)
         {
-            Log.Info($"Received message for topic {e.ApplicationMessage.Topic}");
+           Console.WriteLine($"Received message for topic {e.ApplicationMessage.Topic}");
             var messageReceived = MessageReceived;
             if (messageReceived != null)
             {
-                Log.Info("Will raise event");
+               Console.WriteLine("Will raise event");
                 System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
                 var message = enc.GetString(e.ApplicationMessage.Payload);
-                Log.Info($"Event raised: {e.ApplicationMessage.Topic}, {message},{e.ApplicationMessage.Retain},{e.ApplicationMessage.QualityOfServiceLevel}");
+               Console.WriteLine($"Event raised: {e.ApplicationMessage.Topic}, {message},{e.ApplicationMessage.Retain},{e.ApplicationMessage.QualityOfServiceLevel}");
                 messageReceived(this, new MessageReceivedArgs(new Message(e.ApplicationMessage.Topic,message )));
             }
         }
@@ -116,10 +113,10 @@ namespace MediaControllerBackendServices.Messaging
 
         public void SendMessage(IMessage message)
         {
-            Log.Info("Will send message");
+           Console.WriteLine("Will send message");
             if (!MqttClient.IsConnected)
             {
-                Log.Info("Aborted because not connected");
+               Console.WriteLine("Aborted because not connected");
                 return;
             }
             var mqttMessage = new MqttApplicationMessageBuilder().
