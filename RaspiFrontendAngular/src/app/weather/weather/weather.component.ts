@@ -1,3 +1,23 @@
+class WeatherModule {
+  public name: string;
+  public humidity: string;
+  public temperature: string;
+  public co2: string;
+  public type: string;
+  public pressure: string;
+
+  constructor(data) {
+    this.name = data.Name;
+    this.humidity = data.Humidity;
+    this.temperature = data.Temperature;
+    this.co2 = data.CO2;
+    this.type = data.Type;
+    if (data.Type === 0) {
+      this.pressure = data.Pressure;
+    }
+  }
+}
+
 import { Component, OnInit } from '@angular/core';
 import { MessageQueueComponent } from 'src/app/message-queue/message-queue/message-queue.component';
 
@@ -49,31 +69,13 @@ export class WeatherComponent implements OnInit {
           found = true;
         }
       });
-      if(!found) {
+      if (!found) {
         this.modules.push(new WeatherModule(data));
       }
     } else {
-      console.info('not supported module type: ' + data.Type);
+      console.log('not supported module type: ' + data.Type);
     }
   }
 }
 
-class WeatherModule {
-  public name: string;
-  public humidity: string;
-  public temperature: string;
-  public co2: string;
-  public type: string;
-  public pressure: string;
 
-  constructor(data) {
-    this.name = data.Name;
-    this.humidity = data.Humidity;
-    this.temperature = data.Temperature;
-    this.co2 = data.CO2;
-    this.type = data.Type;
-    if (data.Type === 0) {
-      this.pressure = data.Pressure;
-    }
-  }
-}
