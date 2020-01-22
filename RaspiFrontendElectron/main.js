@@ -13,7 +13,7 @@ function createWindow() {
       width: 800, height: 480, frame: false, kiosk: true });
 
   // and load the index.html of the app.
-    mainWindow.loadURL("http://localhost:4200");
+    mainWindow.loadURL("http://localhost");
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

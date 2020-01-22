@@ -26,7 +26,7 @@ export class MessageQueueComponent implements OnInit {
       'keepalive': 5000,
       'reconnectPeriod': 10000,
       'clientId': 'RaspiWeatherStation',
-      'host': process.env['MQTT_SERVER'],
+      'host': '192.168.1.2',
       'port': 9001
     };
 
