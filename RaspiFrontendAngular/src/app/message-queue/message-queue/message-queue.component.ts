@@ -26,12 +26,13 @@ export class MessageQueueComponent implements OnInit {
       'keepalive': 5000,
       'reconnectPeriod': 10000,
       'clientId': 'RaspiWeatherStation',
-      'host': '192.168.1.2',
+      'host': '127.0.0.1',
       'port': 9001
     };
 
     // Create the client and listen for its connection
-    this.client = mqtt.connect( options);
+    this.client = mqtt.connect(options);
+    console.log('connect called');
     this.client.subscribe('time_data');
     this.client.subscribe('weather_data');
     this.client.addListener('message', this.on_message);
@@ -42,22 +43,27 @@ export class MessageQueueComponent implements OnInit {
   }
 
   private send_weather_request = (...args: any[]) => {
+    console.log('sending weather request');
     this.client.publish('weather_data', 'resend_all');
   }
 
   private send_time_request = (...args: any[]) => {
+    console.log('sending time request');
     this.client.publish('time_data', 'resend_all');
   }
 
   private on_connect = (...args: any[]) => {
+    console.log('on_connect called');
     this.send_weather_request();
     this.send_time_request();
   }
 
   private on_message = (...args: any[]) => {
+    
     const topic = args[0],
       message = args[1],
       packet: mqtt.Packet = args[2];
+    console.log('on_message called with topic ' + topic);
     if (topic === 'time_data') {
       this.timeMessages.next(message.toString());
     }

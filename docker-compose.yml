@@ -16,6 +16,9 @@ services:
     restart: always
     depends_on: 
       - "mosquitto"
+    networks:
+      testing_net:
+        ipv4_address: 172.20.0.4
   raspifrontendangular:
     image: ${DOCKER_REGISTRY-}raspifrontendangular
     build:
@@ -27,11 +30,22 @@ services:
     restart: always
     ports: 
      - 80:80
+    networks:
+      testing_net:
+        ipv4_address: 172.20.0.3
     environment: 
       - MQTT_SERVER
   mosquitto:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:1.5.5
     volumes:
       - ./mosquitto-mqtt/conf:/mosquitto/config
     ports:
       - 9001:9001
+    networks:
+      testing_net:
+        ipv4_address: 172.20.0.2
+networks: 
+  testing_net:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
