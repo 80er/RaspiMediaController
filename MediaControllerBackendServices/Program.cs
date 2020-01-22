@@ -20,7 +20,7 @@ namespace MediaControllerBackendServices
                Console.WriteLine($"NETATMO_PASSWORD={Environment.GetEnvironmentVariable("NETATMO_PASSWORD")}");
                Console.WriteLine($"NETATMO_DEVICE={Environment.GetEnvironmentVariable("NETATMO_DEVICE")}");
                Console.WriteLine($"MQTT_SERVER={Environment.GetEnvironmentVariable("MQTT_SERVER")}");
-                var mqtt = Environment.GetEnvironmentVariable("MQTT_SERVER") ?? "mosquitto";
+               var mqtt = "mosquitto";
                Console.WriteLine($"Will use {mqtt} as mqtt broker");
                 var bus = new MessageBus("RaspiBackend", mqtt, 9001);
                 var broker = new WeatherBroker(bus);
