@@ -28,6 +28,7 @@ services:
      - 80:80
   mosquitto:
     image: eclipse-mosquitto
+    restart: always
     volumes:
       - ./mosquitto-mqtt/conf:/mosquitto/config
     ports:
