@@ -14,6 +14,8 @@ services:
      - NETATMO_DEVICE
      - MQTT_SERVER
     restart: always
+    depends_on: 
+      - "mosquitto"
   raspifrontendangular:
     image: ${DOCKER_REGISTRY-}raspifrontendangular
     build:
@@ -21,8 +23,15 @@ services:
       dockerfile: Dockerfile
     depends_on: 
      - "mediacontrollerbackendservices"
+     - "mosquitto"
     restart: always
     ports: 
      - 80:80
     environment: 
       - MQTT_SERVER
+  mosquitto:
+    image: eclipse-mosquitto
+    volumes:
+      - ./mosquitto-mqtt/conf:/mosquitto/config
+    ports:
+      - 9001:9001
