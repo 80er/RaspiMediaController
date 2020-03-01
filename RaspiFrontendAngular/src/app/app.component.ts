@@ -10,4 +10,8 @@ export class AppComponent {
 
   constructor() {
   }
+
+  div_clicked() {
+    console.log('div_clicked');
+  }
 }
