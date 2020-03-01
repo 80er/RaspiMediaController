@@ -33,3 +33,13 @@ services:
       - ./mosquitto-mqtt/conf:/mosquitto/config
     ports:
       - 9001:9001
+  raumserver:
+    image: ${DOKCER_REGISTRY-}raumserver
+    build:
+      context: ./docker-node-raumserver
+      dockerfile: Dockerfile
+    network_mode: host
+    restart: always
+    ports:
+      - 3535:3535
+      - 3536:3536
