@@ -1,0 +1,3 @@
+[submodule "docker-node-raumserver"]
+	path = docker-node-raumserver
+	url = https://github.com/80er/docker-node-raumserver.git
