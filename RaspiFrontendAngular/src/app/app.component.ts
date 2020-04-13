@@ -6,12 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  showDefault = true;
   title = 'RaspiFrontendAngular';
 
   constructor() {
   }
 
   div_clicked() {
+    this.showDefault = !this.showDefault;
     console.log('div_clicked');
   }
 }

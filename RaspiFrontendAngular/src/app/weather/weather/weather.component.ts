@@ -1,25 +1,6 @@
-class WeatherModule {
-  public name: string;
-  public humidity: string;
-  public temperature: string;
-  public co2: string;
-  public type: string;
-  public pressure: string;
-
-  constructor(data) {
-    this.name = data.Name;
-    this.humidity = data.Humidity;
-    this.temperature = data.Temperature;
-    this.co2 = data.CO2;
-    this.type = data.Type;
-    if (data.Type === 0) {
-      this.pressure = data.Pressure;
-    }
-  }
-}
-
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { MessageQueueComponent } from 'src/app/message-queue/message-queue/message-queue.component';
+import { WeatherModuleEntry } from './WeatherModuleEntry';
 
 @Component({
   selector: 'app-weather',
@@ -27,28 +8,37 @@ import { MessageQueueComponent } from 'src/app/message-queue/message-queue/messa
   styleUrls: ['./weather.component.css']
 })
 
-export class WeatherComponent implements OnInit {
+export class WeatherComponent implements OnInit, AfterContentInit {
 
   public humidity: string;
   public temperature: string;
   public pressure: string;
 
-  public modules: Array<WeatherModule>;
+  public modules: Array<WeatherModuleEntry>;
 
+  private subscribe = true;
   constructor(private _messageQueue: MessageQueueComponent) {
-    this.modules = new Array<WeatherModule>();
+    this.modules = new Array<WeatherModuleEntry>();
     this.humidity = '52';
     this.temperature = '21.5';
     this.pressure = '1042.3';
    }
 
   ngOnInit() {
-    this._messageQueue.weatherMessage.subscribe((data) => this.on_message(data));
+    console.log('subscribe is ' + this.subscribe);
+    if (this.subscribe) {
+      this._messageQueue.weatherMessage.subscribe((data) => this.on_message(data));
+      this.subscribe = false;
+    }
+  }
+
+  ngAfterContentInit(): void {
+    console.log('content_init');
   }
 
   private on_message = (...args: any[]) => {
     const message = args[0];
-    if(message === 'resend_all') {
+    if (message === 'resend_all') {
        return;
     }
     const data = JSON.parse(message);
@@ -70,7 +60,7 @@ export class WeatherComponent implements OnInit {
         }
       });
       if (!found) {
-        this.modules.push(new WeatherModule(data));
+        this.modules.push(new WeatherModuleEntry(data));
       }
     } else {
       console.log('not supported module type: ' + data.Type);

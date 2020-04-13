@@ -1,0 +1,81 @@
+.raumfeld {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 35px;
+  color: gray;
+  overflow: hidden;
+  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.externalcontainer {
+  align-self: center;
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+.subcontainer_left {
+  float: left;
+  width: 30%;
+  height: 100%;
+  vertical-align: middle;
+}
+.subcontainer_middle {
+  float: left;
+  width: 30%;
+  height: 100%;
+  vertical-align: middle;
+}
+.subcontainer_right {
+  float: left;
+  width: 30%;
+  height: 100%;
+  vertical-align: middle;
+}
+.subcontainer_left_leftimg {
+  position: relative;
+  height: 45px;
+  width: 45px;
+  left: 50px;
+  vertical-align: middle;
+}
+.subcontainer_left_lefttext {
+  float: right;
+  position: relative;
+  vertical-align: middle;
+}
+.subcontainer_middle_img {
+  position: relative;
+  height: 45px;
+  width: 45px;
+  vertical-align: middle;
+  left: 5px;
+}
+.subcontainer_middle_text {
+  float: right;
+  right: 50px;
+  position: relative;
+  vertical-align: middle;
+}
+.subcontainer_right_rightimg {
+  width: 45px;
+  height: 45px;
+  float: left;
+  vertical-align: middle;
+}
+.subcontainer_right_righttext {
+  float: left;
+  left: 10px;
+  position: relative;
+  vertical-align: middle;
+}
+.componenttable {
+  width: 800px;
+}
+.moduletable{
+  font-size: 22px;
+  width: 200px;
+  padding: 0;
+  margin: 0;
+}

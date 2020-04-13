@@ -1,6 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center" (click)="div_clicked()" (touchstart)="div_clicked()">
   <app-clock></app-clock>
-  <app-weather></app-weather>
+  <app-weather *ngIf="showDefault"></app-weather>
+  <app-raumfeld *ngIf="!showDefault"></app-raumfeld>
   <router-outlet></router-outlet>
 </div>

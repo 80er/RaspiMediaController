@@ -7,19 +7,19 @@ import { AppComponent } from './app.component';
 import { MessageQueueModule } from './message-queue/message-queue.module';
 import { ClockModule } from './clock/clock.module';
 import { WeatherModule } from './weather/weather.module';
-import { RaumfeldComponent } from './raumfeld/raumfeld.component';
+import { RaumfeldModule } from './raumfeld/raumfeld.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    RaumfeldComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MessageQueueModule,
     ClockModule,
-    WeatherModule
+    WeatherModule,
+    RaumfeldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

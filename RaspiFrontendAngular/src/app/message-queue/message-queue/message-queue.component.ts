@@ -4,7 +4,7 @@ import * as mqtt from 'mqtt';
 import { Subject } from 'rxjs/Rx';
 
 @Injectable({
-  providedIn:'root'
+  providedIn: 'root'
 })
 
 @Component({
@@ -59,15 +59,13 @@ export class MessageQueueComponent implements OnInit {
   }
 
   private on_message = (...args: any[]) => {
-
     const topic = args[0],
       message = args[1],
       packet: mqtt.Packet = args[2];
     console.log('on_message called with topic ' + topic);
     if (topic === 'time_data') {
       this.timeMessages.next(message.toString());
-    }
-    else if(topic === 'weather_data') {
+    } else if (topic === 'weather_data') {
       this.weatherMessage.next(message.toString());
     } else {
       console.warn('Message from unknown topic received: ' + topic);
