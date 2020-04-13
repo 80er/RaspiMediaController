@@ -34,6 +34,7 @@ export class WeatherComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit(): void {
     console.log('content_init');
+    this._messageQueue.send_weather_request();
   }
 
   private on_message = (...args: any[]) => {

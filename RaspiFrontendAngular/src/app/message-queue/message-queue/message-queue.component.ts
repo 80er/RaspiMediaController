@@ -42,7 +42,7 @@ export class MessageQueueComponent implements OnInit {
   ngOnInit() {
   }
 
-  private send_weather_request = (...args: any[]) => {
+  public send_weather_request = (...args: any[]) => {
     console.log('sending weather request');
     this.client.publish('weather_data', 'resend_all');
   }
