@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { MessageQueueModule } from './message-queue/message-queue.module';
 import { ClockModule } from './clock/clock.module';
 import { WeatherModule } from './weather/weather.module';
+import { RaumfeldComponent } from './raumfeld/raumfeld.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RaumfeldComponent
   ],
   imports: [
     BrowserModule,

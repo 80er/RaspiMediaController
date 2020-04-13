@@ -26,7 +26,7 @@ export class MessageQueueComponent implements OnInit {
       'keepalive': 5000,
       'reconnectPeriod': 10000,
       'clientId': 'RaspiWeatherStation',
-      'host': '127.0.0.1',
+      'host': 'weatherstation',
       'port': 9001
     };
 
@@ -59,7 +59,7 @@ export class MessageQueueComponent implements OnInit {
   }
 
   private on_message = (...args: any[]) => {
-    
+
     const topic = args[0],
       message = args[1],
       packet: mqtt.Packet = args[2];
