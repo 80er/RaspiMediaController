@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
 using System.Timers;
 using Timer = System.Timers.Timer;
 using MediaControllerBackendServices.Messaging;

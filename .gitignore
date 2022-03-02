@@ -11,6 +11,7 @@
 /RaspiMediaControllerFrontend/bin/Debug/netcoreapp2.0
 /MediaControllerBackendServices/bin/Debug/netcoreapp2.0
 /MediaControllerBackendServices/obj
+/MediaControllerBackendServices/bin
 /RaspiMediaControllerFrontend/bin
 /RaspiMediaControllerFrontend/null
 /MediaControllerBackendServices/bin/Debug/netcoreapp2.1/linux-arm

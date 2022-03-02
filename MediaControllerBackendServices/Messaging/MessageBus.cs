@@ -36,7 +36,7 @@ namespace MediaControllerBackendServices.Messaging
             var options = CreateOptions();
             try
             {
-                await MqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic("#").Build());
+                await MqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("#").Build());
                Console.WriteLine("Subscribed");
                 await MqttClient.StartAsync(options);
                Console.WriteLine("Started");
