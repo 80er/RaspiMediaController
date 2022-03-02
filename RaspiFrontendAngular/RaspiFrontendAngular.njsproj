@@ -52,6 +52,8 @@
     <Content Include="src\app\clock\clock\clock.component.html" />
     <Content Include="src\app\message-queue\message-queue\message-queue.component.css" />
     <Content Include="src\app\message-queue\message-queue\message-queue.component.html" />
+    <Content Include="src\app\raumfeld\raumfeld\raumfeld.component.css" />
+    <Content Include="src\app\raumfeld\raumfeld\raumfeld.component.html" />
     <Content Include="src\app\weather\weather\weather.component.css" />
     <Content Include="src\app\weather\weather\weather.component.html" />
     <Content Include="src\assets\.gitkeep" />
@@ -75,6 +77,8 @@
     <Folder Include="src\app\clock\clock\" />
     <Folder Include="src\app\message-queue\" />
     <Folder Include="src\app\message-queue\message-queue\" />
+    <Folder Include="src\app\raumfeld\" />
+    <Folder Include="src\app\raumfeld\raumfeld\" />
     <Folder Include="src\app\weather\" />
     <Folder Include="src\app\weather\weather\" />
     <Folder Include="src\assets\" />
@@ -90,6 +94,9 @@
     <TypeScriptCompile Include="src\app\clock\clock\clock.component.ts" />
     <TypeScriptCompile Include="src\app\message-queue\message-queue.module.ts" />
     <TypeScriptCompile Include="src\app\message-queue\message-queue\message-queue.component.ts" />
+    <TypeScriptCompile Include="src\app\raumfeld\raumfeld.module.ts" />
+    <TypeScriptCompile Include="src\app\raumfeld\raumfeld\raumfeld.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\raumfeld\raumfeld\raumfeld.component.ts" />
     <TypeScriptCompile Include="src\app\weather\weather.module.ts" />
     <TypeScriptCompile Include="src\app\weather\weather\weather.component.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />

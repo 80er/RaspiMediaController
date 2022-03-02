@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Injectable} from '@angular/core';
-import * as mqtt from 'mqtt';
-import { Subject } from 'rxjs/Rx';
+import * as mqtt from 'mqtt/dist/mqtt';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
