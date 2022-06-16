@@ -7,6 +7,6 @@
     "name": ""
   },
   "dependencies": {
-    "electron": "^17.1.0"
+    "electron": "^17.2.0"
   }
 }
