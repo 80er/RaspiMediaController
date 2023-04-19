@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MQTTnet;
 using MQTTnet.Client;
-using MQTTnet.Client.Connecting;
-using MQTTnet.Client.Disconnecting;
-using MQTTnet.Client.Options;
-using MQTTnet.Client.Receiving;
 using MQTTnet.Extensions.ManagedClient;
+using MQTTnet.Packets;
 using MQTTnet.Protocol;
 
 namespace MediaControllerBackendServices.Messaging
@@ -36,13 +34,14 @@ namespace MediaControllerBackendServices.Messaging
             var options = CreateOptions();
             try
             {
-                await MqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("#").Build());
+                await MqttClient.SubscribeAsync(new Collection<MqttTopicFilter>{new MqttTopicFilterBuilder().WithTopic("#").Build()});
                Console.WriteLine("Subscribed");
                 await MqttClient.StartAsync(options);
                Console.WriteLine("Started");
-                MqttClient.UseApplicationMessageReceivedHandler(MqttClientOnApplicationMessageReceived);
-                MqttClient.UseDisconnectedHandler(MqttDisconnected);
-                MqttClient.UseConnectedHandler(MqttConnected);
+               MqttClient.ApplicationMessageProcessedAsync += MqttClientOnApplicationMessageProcessedAsync;
+
+                MqttClient.DisconnectedAsync += MqttClientOnDisconnectedAsync;
+                MqttClient.ConnectedAsync += MqttClientOnConnectedAsync; 
             }
             catch (Exception e)
             {
@@ -51,12 +50,7 @@ namespace MediaControllerBackendServices.Messaging
             
         }
 
-        private Task MqttConnected(MqttClientConnectedEventArgs arg)
-        {
-            return Task.Run(() =>Console.WriteLine("Mqtt connected"));
-        }
-
-        private Task MqttDisconnected(MqttClientDisconnectedEventArgs arg)
+        private Task MqttClientOnDisconnectedAsync(MqttClientDisconnectedEventArgs arg)
         {
             return Task.Run(() =>
             {
@@ -66,6 +60,27 @@ namespace MediaControllerBackendServices.Messaging
                     Console.WriteLine(arg.Exception);
                 }
             });
+        }
+
+        private Task MqttClientOnConnectedAsync(MqttClientConnectedEventArgs arg)
+        {
+            return Task.Run(() => Console.WriteLine("Mqtt connected"));
+        }
+
+        private Task MqttClientOnApplicationMessageProcessedAsync(ApplicationMessageProcessedEventArgs arg)
+        {
+            Console.WriteLine($"Received message for topic {arg.ApplicationMessage.ApplicationMessage.Topic}");
+            var messageReceived = MessageReceived;
+            if (messageReceived != null)
+            {
+                Console.WriteLine("Will raise event");
+                System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+                var message = enc.GetString(arg.ApplicationMessage.ApplicationMessage.Payload);
+                Console.WriteLine($"Event raised: {arg.ApplicationMessage.ApplicationMessage.Topic}, {message},{arg.ApplicationMessage.ApplicationMessage.Retain},{arg.ApplicationMessage.ApplicationMessage.QualityOfServiceLevel}");
+                messageReceived(this, new MessageReceivedArgs(new Message(arg.ApplicationMessage.ApplicationMessage.Topic, message)));
+            }
+
+            return Task.CompletedTask;
         }
 
         private IManagedMqttClient GetOrCreateClient()
@@ -87,7 +102,7 @@ namespace MediaControllerBackendServices.Messaging
                 .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
                 .WithClientOptions(new MqttClientOptionsBuilder()
                 .WithClientId(ClientId)
-                .WithWebSocketServer($"{Uri}:{Port}")
+                .WithTcpServer($"{Uri}")
                 .WithCleanSession(true)
                 .WithKeepAlivePeriod(TimeSpan.FromSeconds(10))
                 .Build()).Build();
@@ -96,16 +111,7 @@ namespace MediaControllerBackendServices.Messaging
 
         private void MqttClientOnApplicationMessageReceived(MqttApplicationMessageReceivedEventArgs e)
         {
-           Console.WriteLine($"Received message for topic {e.ApplicationMessage.Topic}");
-            var messageReceived = MessageReceived;
-            if (messageReceived != null)
-            {
-               Console.WriteLine("Will raise event");
-                System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-                var message = enc.GetString(e.ApplicationMessage.Payload);
-               Console.WriteLine($"Event raised: {e.ApplicationMessage.Topic}, {message},{e.ApplicationMessage.Retain},{e.ApplicationMessage.QualityOfServiceLevel}");
-                messageReceived(this, new MessageReceivedArgs(new Message(e.ApplicationMessage.Topic,message )));
-            }
+          
         }
 
 
@@ -122,11 +128,10 @@ namespace MediaControllerBackendServices.Messaging
             var mqttMessage = new MqttApplicationMessageBuilder().
                 WithPayload(message.Payload).
                 WithTopic(message.Topic).
-                WithExactlyOnceQoS().
                 WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).
                 WithRetainFlag(false).
                 Build();
-            MqttClient.PublishAsync(mqttMessage);
+            MqttClient.InternalClient.PublishAsync(mqttMessage, CancellationToken.None);
         }
     }
 }

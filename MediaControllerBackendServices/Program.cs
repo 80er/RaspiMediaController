@@ -19,7 +19,7 @@ namespace MediaControllerBackendServices
                Console.WriteLine($"NETATMO_USER={Environment.GetEnvironmentVariable("NETATMO_USER")}");
                Console.WriteLine($"NETATMO_PASSWORD={Environment.GetEnvironmentVariable("NETATMO_PASSWORD")}");
                Console.WriteLine($"NETATMO_DEVICE={Environment.GetEnvironmentVariable("NETATMO_DEVICE")}");
-               var bus = new MessageBus("RaspiBackend", "mosquitto", 9001);
+               var bus = new MessageBus("RaspiBackend", "192.168.1.2", 9001);
                 var broker = new WeatherBroker(bus);
                 var timer = new TimeBroker(bus);
                 while (true)
