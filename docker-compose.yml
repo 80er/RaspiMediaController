@@ -13,8 +13,8 @@ services:
      - NETATMO_PASSWORD
      - NETATMO_DEVICE
     restart: always
-    depends_on: 
-      - "mosquitto"
+#    depends_on: 
+#     - "mosquitto"
   raspifrontendangular:
     image: ${DOCKER_REGISTRY-}raspifrontendangular
     build:
@@ -22,17 +22,17 @@ services:
       dockerfile: Dockerfile
     depends_on: 
      - "mediacontrollerbackendservices"
-     - "mosquitto"
+#     - "mosquitto"
     restart: always
     ports: 
      - 80:80
-  mosquitto:
-    image: eclipse-mosquitto
-    restart: always
-    volumes:
-      - ./mosquitto-mqtt/conf:/mosquitto/config
-    ports:
-      - 9001:9001
+#  mosquitto:
+#    image: eclipse-mosquitto
+#    restart: always
+#    volumes:
+#      - ./mosquitto-mqtt/conf:/mosquitto/config
+#    ports:
+#      - 9001:9001
   raumserver:
     image: ${DOKCER_REGISTRY-}raumserver
     build:

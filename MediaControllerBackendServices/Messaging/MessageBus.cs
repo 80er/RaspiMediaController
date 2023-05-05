@@ -34,11 +34,12 @@ namespace MediaControllerBackendServices.Messaging
             var options = CreateOptions();
             try
             {
-                await MqttClient.SubscribeAsync(new Collection<MqttTopicFilter>{new MqttTopicFilterBuilder().WithTopic("#").Build()});
+                MqttClient.ApplicationMessageReceivedAsync += MqttClientOnApplicationMessageReceivedAsync;
+                await MqttClient.SubscribeAsync(new Collection<MqttTopicFilter>{new MqttTopicFilterBuilder().WithTopic("weather_data").WithTopic("time_data").Build()});
                Console.WriteLine("Subscribed");
                 await MqttClient.StartAsync(options);
                Console.WriteLine("Started");
-               MqttClient.ApplicationMessageProcessedAsync += MqttClientOnApplicationMessageProcessedAsync;
+               //MqttClient.ApplicationMessageProcessedAsync += MqttClientOnApplicationMessageProcessedAsync;
 
                 MqttClient.DisconnectedAsync += MqttClientOnDisconnectedAsync;
                 MqttClient.ConnectedAsync += MqttClientOnConnectedAsync; 
@@ -48,6 +49,22 @@ namespace MediaControllerBackendServices.Messaging
                 Console.WriteLine(e);
             }
             
+        }
+
+        private Task MqttClientOnApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
+        {
+            Console.WriteLine($"Received message for topic {arg.ApplicationMessage.Topic}");
+            var messageReceived = MessageReceived;
+            if (messageReceived != null)
+            {
+                Console.WriteLine("Will raise event");
+                System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+                var message = enc.GetString(arg.ApplicationMessage.Payload);
+                Console.WriteLine($"Event raised: {arg.ApplicationMessage.Topic}, {message},{arg.ApplicationMessage.Retain},{arg.ApplicationMessage.QualityOfServiceLevel}");
+                messageReceived(this, new MessageReceivedArgs(new Message(arg.ApplicationMessage.Topic, message)));
+            }
+
+            return Task.CompletedTask;
         }
 
         private Task MqttClientOnDisconnectedAsync(MqttClientDisconnectedEventArgs arg)
@@ -67,21 +84,21 @@ namespace MediaControllerBackendServices.Messaging
             return Task.Run(() => Console.WriteLine("Mqtt connected"));
         }
 
-        private Task MqttClientOnApplicationMessageProcessedAsync(ApplicationMessageProcessedEventArgs arg)
-        {
-            Console.WriteLine($"Received message for topic {arg.ApplicationMessage.ApplicationMessage.Topic}");
-            var messageReceived = MessageReceived;
-            if (messageReceived != null)
-            {
-                Console.WriteLine("Will raise event");
-                System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-                var message = enc.GetString(arg.ApplicationMessage.ApplicationMessage.Payload);
-                Console.WriteLine($"Event raised: {arg.ApplicationMessage.ApplicationMessage.Topic}, {message},{arg.ApplicationMessage.ApplicationMessage.Retain},{arg.ApplicationMessage.ApplicationMessage.QualityOfServiceLevel}");
-                messageReceived(this, new MessageReceivedArgs(new Message(arg.ApplicationMessage.ApplicationMessage.Topic, message)));
-            }
+        //private Task MqttClientOnApplicationMessageProcessedAsync(ApplicationMessageProcessedEventArgs arg)
+        //{
+        //    Console.WriteLine($"Received message for topic {arg.ApplicationMessage.ApplicationMessage.Topic}");
+        //    var messageReceived = MessageReceived;
+        //    if (messageReceived != null)
+        //    {
+        //        Console.WriteLine("Will raise event");
+        //        System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+        //        var message = enc.GetString(arg.ApplicationMessage.ApplicationMessage.Payload);
+        //        Console.WriteLine($"Event raised: {arg.ApplicationMessage.ApplicationMessage.Topic}, {message},{arg.ApplicationMessage.ApplicationMessage.Retain},{arg.ApplicationMessage.ApplicationMessage.QualityOfServiceLevel}");
+        //        messageReceived(this, new MessageReceivedArgs(new Message(arg.ApplicationMessage.ApplicationMessage.Topic, message)));
+        //    }
 
-            return Task.CompletedTask;
-        }
+        //    return Task.CompletedTask;
+        //}
 
         private IManagedMqttClient GetOrCreateClient()
         {

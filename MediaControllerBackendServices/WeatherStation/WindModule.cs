@@ -11,9 +11,13 @@ namespace MediaControllerBackendServices.WeatherStation
         public WindModule(Module module)
         {
             Module = module;
-            var data = Newtonsoft.Json.JsonConvert.DeserializeObject<DashboardData>(Module.DashboardData.ToString());
-            WindAngle = data.WindAngle;
-            WindStrength = data.WindStrength;
+            if (Module.DashboardData != null)
+            {
+                var data =
+                    Newtonsoft.Json.JsonConvert.DeserializeObject<DashboardData>(Module.DashboardData.ToString());
+                WindAngle = data.WindAngle;
+                WindStrength = data.WindStrength;
+            }
         }
 
         public double WindStrength { get; }
