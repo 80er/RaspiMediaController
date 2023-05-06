@@ -1,7 +1,7 @@
-FROM mcr.microsoft.com/dotnet/runtime:6.0 as base
+FROM mcr.microsoft.com/dotnet/runtime:6.0-focal as base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /src
 COPY MediaControllerBackendServices.csproj MediaControllerBackendServices/
 RUN dotnet restore MediaControllerBackendServices/MediaControllerBackendServices.csproj
