@@ -27,11 +27,14 @@ export class MessageQueueComponent implements OnInit {
       'reconnectPeriod': 10000,
       'clientId': 'RaspiWeatherStation',
       'host': '192.168.1.2',
-      'port': 9001
+      'hostname': '192.168.1.2',
+      'port': 9001,
+      'defaultProtocol': 'mqtt'
     };
 
     // Create the client and listen for its connection
-    this.client = mqtt.connect(options);
+    //this.client = mqtt.connect(options);
+    this.client = mqtt.connect('mqtt://192.168.1.2:9002');
     console.log('connect called');
     this.client.subscribe('time_data');
     this.client.subscribe('weather_data');
@@ -66,6 +69,7 @@ export class MessageQueueComponent implements OnInit {
     if (topic === 'time_data') {
       this.timeMessages.next(message.toString());
     } else if (topic === 'weather_data') {
+      console.log(message.toString());
       this.weatherMessage.next(message.toString());
     } else {
       console.warn('Message from unknown topic received: ' + topic);

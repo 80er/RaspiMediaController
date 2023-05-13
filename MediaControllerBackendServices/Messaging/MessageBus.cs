@@ -35,7 +35,7 @@ namespace MediaControllerBackendServices.Messaging
             try
             {
                 MqttClient.ApplicationMessageReceivedAsync += MqttClientOnApplicationMessageReceivedAsync;
-                await MqttClient.SubscribeAsync(new Collection<MqttTopicFilter>{new MqttTopicFilterBuilder().WithTopic("weather_data").WithTopic("time_data").Build()});
+                await MqttClient.SubscribeAsync(new Collection<MqttTopicFilter>{new MqttTopicFilterBuilder().WithTopic("weather_data").Build(), new MqttTopicFilterBuilder().WithTopic("time_data").Build() });
                Console.WriteLine("Subscribed");
                 await MqttClient.StartAsync(options);
                Console.WriteLine("Started");
