@@ -2,10 +2,7 @@ version: '3.4'
 
 services:
   raspifrontendangular:
-    image: ${DOCKER_REGISTRY-}raspifrontendangular
-    build:
-      context: ./RaspiFrontendAngular
-      dockerfile: Dockerfile
+    image: 80er/netatmoweatherstationdisplay:LATEST
     restart: always
     ports: 
      - 80:80
