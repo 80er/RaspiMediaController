@@ -1,45 +1,22 @@
 version: '3.4'
 
 services:
-  mediacontrollerbackendservices:
-    image: ${DOCKER_REGISTRY-}mediacontrollerbackendservices
-    build:
-      context: ./MediaControllerBackendServices
-      dockerfile: Dockerfile
-    environment:
-     - NETATMO_CLIENT_SECRET
-     - NETATMO_CLIENT
-     - NETATMO_USER
-     - NETATMO_PASSWORD
-     - NETATMO_DEVICE
-    restart: always
-#    depends_on: 
-#     - "mosquitto"
   raspifrontendangular:
     image: ${DOCKER_REGISTRY-}raspifrontendangular
     build:
       context: ./RaspiFrontendAngular
       dockerfile: Dockerfile
-    depends_on: 
-     - "mediacontrollerbackendservices"
-#     - "mosquitto"
     restart: always
     ports: 
      - 80:80
-#  mosquitto:
-#    image: eclipse-mosquitto
-#    restart: always
-#    volumes:
-#      - ./mosquitto-mqtt/conf:/mosquitto/config
-#    ports:
-#      - 9001:9001
-  raumserver:
-    image: ${DOKCER_REGISTRY-}raumserver
-    build:
-      context: ./docker-node-raumserver
-      dockerfile: Dockerfile
-    network_mode: host
-    restart: always
-    ports:
-      - 3535:3535
-      - 3536:3536
+  # we have to reactivate that again... 
+  # raumserver:
+  #   image: ${DOKCER_REGISTRY-}raumserver
+  #   build:
+  #     context: ./docker-node-raumserver
+  #     dockerfile: Dockerfile
+  #   network_mode: host
+  #   restart: always
+  #   ports:
+  #     - 3535:3535
+  #     - 3536:3536
