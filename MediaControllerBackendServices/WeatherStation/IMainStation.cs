@@ -10,5 +10,6 @@ namespace MediaControllerBackendServices.WeatherStation
         double Noise { get; }
         double Pressure { get; }
         IEnumerable<IModule> GetModules();
+        void Refresh();
     }
 }

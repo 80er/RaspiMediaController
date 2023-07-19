@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using Netatmo;
 using Netatmo.Models.Client.Air;
+using Netatmo.Models.Client.Air.HomesCoachs;
 using Netatmo.Models.Client.Weather.StationsData;
 
 namespace MediaControllerBackendServices.WeatherStation
 {
     class MainStation : IMainStation, IEquatable<IMainStation>
     {
-        private Device MainDevice { get; }
-
+        private Device MainDevice { get; set; }
+        private string _deviceID;
+        private Client _client;
         public MainStation()
         {
-            MainDevice = Init();
+            Init();
         }
 
         public string Name {
@@ -81,26 +83,38 @@ namespace MediaControllerBackendServices.WeatherStation
 
         public ModuleType Type => ModuleType.Main;
 
-        private static Device Init()
+        public void Refresh()
+        {
+            try
+            {
+                MainDevice = _client.Weather.GetStationsData(_deviceID).Result.Body.Devices.First();
+            } catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in refreshing station. {ex.Message}{Environment.NewLine}{ex}");
+                _client.RefreshToken();
+            }
+            
+        }
+
+        private void Init()
         {
             string clientSecret = Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET").Trim();
             string clientId = Environment.GetEnvironmentVariable("NETATMO_CLIENT").Trim();
-            string deviceId = Environment.GetEnvironmentVariable("NETATMO_DEVICE").Trim();
+            _deviceID = Environment.GetEnvironmentVariable("NETATMO_DEVICE").Trim();
             string token = Environment.GetEnvironmentVariable("NETATMO_TOKEN").Trim();
+            string refreshToken = Environment.GetEnvironmentVariable("NETATMO_REFRESH_TOKEN").Trim();
             var clock = NodaTime.SystemClock.Instance;
-            var client = new Netatmo.Client(clock, "https://api.netatmo.com/", clientId, clientSecret);
+            _client = new Netatmo.Client(clock, "https://api.netatmo.com/", clientId, clientSecret);
             Device station = null;
             try
             {
-                client.CredentialManager.ProvideOAuth2Token(token);
-                station = client.Weather.GetStationsData(deviceId).Result.Body.Devices.First();
+                _client.CredentialManager.ProvideOAuth2Token(token, refreshToken);
+                MainDevice = _client.Weather.GetStationsData(_deviceID).Result.Body.Devices.First();
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Exception in accessing weather data: {e.Message}.{Environment.NewLine}{e}");
             }
-            
-            return station;
         }
 
         public override string ToString()

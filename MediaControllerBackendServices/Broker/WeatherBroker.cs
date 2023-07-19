@@ -16,6 +16,7 @@ namespace MediaControllerBackendServices.Broker
         private static string myTopic = "weather_data";
         private bool myResendAll;
         private static Dictionary<string, object> myModuleCache = new Dictionary<string, object>();
+        private static MainStation _mainStation = new MainStation();
 
         public WeatherBroker(IMessageBus messageBus)
         {
@@ -38,16 +39,15 @@ namespace MediaControllerBackendServices.Broker
         }
 
         private static object myLockObject = new object();
-        private void TimerOnElapsed(object sender, ElapsedEventArgs e)
+        private  void TimerOnElapsed(object sender, ElapsedEventArgs e)
         {
             lock (myLockObject)
             {
                 try
                 {
-                    // TODO: have to inject somehow main station....
-                    var station = new MainStation();
-                    SendMesage(MessageBus, (IAirModule)station, myResendAll);
-                    foreach (var module in station.GetModules())
+                    _mainStation.Refresh();
+                    SendMesage(MessageBus, (IAirModule)_mainStation, myResendAll);
+                    foreach (var module in _mainStation.GetModules())
                     {
                         SendMesage(MessageBus, module, myResendAll);
                     }
